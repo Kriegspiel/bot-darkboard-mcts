@@ -164,13 +164,14 @@ def _action_node(score: ActionScore) -> ActionNode:
     capture = legal * _clamp(score.capture_probability)
     check = legal * (1.0 - _clamp(score.capture_probability)) * _clamp(score.check_probability)
     quiet = max(0.0, legal - capture - check)
+    leaf_adjustment = score.quiescence_adjustment + score.metaposition_adjustment
 
     branches = _normalize_branches(
         {
             "illegal": (illegal, -max(score.legality_penalty, 20.0)),
-            "capture": (capture, _event_value(score.capture_value, capture) + score.recapture_bonus),
-            "check": (check, _event_value(score.check_pressure, check) + score.development),
-            "quiet": (quiet, score.development),
+            "capture": (capture, _event_value(score.capture_value, capture) + score.recapture_bonus + leaf_adjustment),
+            "check": (check, _event_value(score.check_pressure, check) + score.development + leaf_adjustment),
+            "quiet": (quiet, score.development + leaf_adjustment),
         }
     )
     return ActionNode(

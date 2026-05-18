@@ -38,13 +38,14 @@ This repository now contains:
 - a bounded public-outcome MCTS core over move, referee, and opponent branches
 - short tactical quiescence estimates for volatile captures, recaptures, and
   promotion races
+- a metaposition-inspired matrix abstraction for public-safe positional scoring
 - a deterministic one-ply evaluator for move attempts
 - an implementation plan grounded in the public Darkboard papers
 - a versioned roadmap for covering the public Darkboard paper ideas
 - tests for the scaffold and runtime loop
 
-The championship-strength work is intentionally still ahead: metaposition
-abstractions, game-log priors, tuning, and benchmarking.
+The championship-strength work is intentionally still ahead: game-log priors,
+tuning, and benchmarking.
 
 The runtime is intentionally conservative:
 
@@ -59,6 +60,8 @@ The runtime is intentionally conservative:
 - searches public referee outcomes with bounded MCTS and falls back to the deterministic evaluator on malformed state
 - applies deterministic public-state quiescence adjustments under
   `DARKBOARD_QUIESCENCE_*` environment overrides
+- applies metaposition-inspired positional adjustments under
+  `DARKBOARD_METAPOSITION_*` environment overrides
 
 MCTS runtime controls:
 
@@ -89,6 +92,18 @@ Quiescence weights currently include:
 - `DARKBOARD_QUIESCENCE_PROMOTION_RACE_SCALE`
 - `DARKBOARD_QUIESCENCE_INFORMATIVE_PROBE_PENALTY_SCALE`
 - `DARKBOARD_QUIESCENCE_MAX_ADJUSTMENT`
+
+Metaposition weights currently include:
+
+- `DARKBOARD_METAPOSITION_MATERIAL_BALANCE_SCALE`
+- `DARKBOARD_METAPOSITION_PAWN_ADVANCEMENT_SCALE`
+- `DARKBOARD_METAPOSITION_PROMOTION_PRESSURE_SCALE`
+- `DARKBOARD_METAPOSITION_OPEN_FILE_SCALE`
+- `DARKBOARD_METAPOSITION_FRIENDLY_OPEN_FILE_SCALE`
+- `DARKBOARD_METAPOSITION_CONTROLLED_SQUARES_SCALE`
+- `DARKBOARD_METAPOSITION_KING_EDGE_SCALE`
+- `DARKBOARD_METAPOSITION_CHECKMATING_PRESSURE_SCALE`
+- `DARKBOARD_METAPOSITION_MAX_ADJUSTMENT`
 
 ## Development
 
