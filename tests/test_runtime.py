@@ -14,7 +14,7 @@ def test_supported_rule_variants_are_wild16_only() -> None:
         assert api.supported_rule_variants() == ["wild16"]
 
 
-def test_register_bot_advertises_wild16_and_stays_unlisted_by_default() -> None:
+def test_register_bot_advertises_wild16_and_lists_by_default() -> None:
     posts: list[dict] = []
 
     class FakeResponse:
@@ -42,6 +42,33 @@ def test_register_bot_advertises_wild16_and_stays_unlisted_by_default() -> None:
                     api.register_bot()
 
     assert posts[0]["json"]["supported_rule_variants"] == ["wild16"]
+    assert posts[0]["json"]["listed"] is True
+
+
+def test_register_bot_can_be_kept_unlisted_by_env() -> None:
+    posts: list[dict] = []
+
+    class FakeResponse:
+        def raise_for_status(self) -> None:
+            return None
+
+        def json(self) -> dict:
+            return {"api_token": "token-123"}
+
+    env = {
+        "KRIEGSPIEL_API_BASE": "https://api.example.test",
+        "KRIEGSPIEL_BOT_REGISTRATION_KEY": "registration-key",
+        "KRIEGSPIEL_BOT_USERNAME": "darkboardmcts",
+        "KRIEGSPIEL_BOT_DISPLAY_NAME": "Darkboard MCTS",
+        "KRIEGSPIEL_BOT_OWNER_EMAIL": "bots@example.test",
+        "KRIEGSPIEL_BOT_LISTED": "false",
+    }
+    with tempfile.TemporaryDirectory() as temp_dir:
+        with patch.object(api, "STATE_PATH", Path(temp_dir) / ".bot-state.json"):
+            with patch.dict(os.environ, env, clear=True):
+                with patch.object(api.requests, "post", side_effect=lambda *args, **kwargs: posts.append(kwargs) or FakeResponse()):
+                    api.register_bot()
+
     assert posts[0]["json"]["listed"] is False
 
 

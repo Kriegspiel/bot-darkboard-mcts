@@ -43,7 +43,7 @@ game-log priors, and benchmarking.
 The runtime is intentionally conservative:
 
 - supports only `wild16`
-- registers unlisted by default
+- registers listed by default
 - defaults to one active game
 - does not auto-create lobby games by default
 - does not join bot-vs-bot games unless explicitly configured
@@ -76,8 +76,8 @@ darkboard-mcts-bot --poll-seconds 2
 
 A production host can run the bot with
 `deploy/kriegspiel-darkboard-mcts-bot.service` once credentials have been
-created on that host. The bot should stay unlisted until it has benchmark
-results against the existing bots.
+created on that host. Set `KRIEGSPIEL_BOT_LISTED=false` only for private
+testing accounts.
 
 ## Sources
 

@@ -50,7 +50,7 @@ Current deterministic baseline:
 - skips non-`wild16` games defensively
 - ranks currently exposed move attempts deterministically
 - retries attempts until one completes the turn or the ranked list is exhausted
-- defaults to unlisted, one active game, no automatic lobby creation, and no
+- defaults to listed, one active game, no automatic lobby creation, and no
   bot-vs-bot joins
 
 5. Quiescence
