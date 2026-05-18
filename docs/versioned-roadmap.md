@@ -161,23 +161,30 @@ Paper coverage:
 
 ### `0.9.0` - semi-manual aggregate priors
 
-Add optional learned priors from platform game data, but keep the workflow
-reviewed and offline.
+Status: shipped.
+
+Added optional learned priors from prepared platform game data while keeping the
+workflow reviewed and offline.
 
 - Define a stable `priors.json` format.
-- Let the bot load `priors.json` if present.
+- Let the bot load `priors.json` if present, or a file named by
+  `DARKBOARD_PRIORS_PATH`.
 - Keep hand-built priors as the default fallback.
-- Add an offline analysis script that can read completed Wild 16 archives later.
+- Add `darkboard-generate-priors`, an offline analysis script that can read
+  prepared completed Wild 16 archive exports.
 - Generate aggregate priors only from completed Wild 16 games.
 - Learn opening piece-density priors.
 - Learn pawn movement tendencies.
 - Learn recapture and retaliation rates.
 - Learn capture-chain lengths.
 - Review generated priors before deploying them.
+- Ignore malformed, incompatible, or non-Wild-16 priors files and continue with
+  the hand-built priors.
 
 Data policy:
 
-- Do not require manual PGN input.
+- Do not require manual PGN input; accept JSON, JSONL, or a JSON object with a
+  top-level `games` list.
 - Do not let the live bot continuously learn from production data.
 - Do not model individual opponents in this version.
 - Do not store per-opponent priors unless a separate privacy and retention design
