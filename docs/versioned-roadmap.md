@@ -41,7 +41,9 @@ Paper coverage:
 
 ### `0.4.0` - evidence and belief updates
 
-Implement persistent belief reconstruction from public referee evidence.
+Status: shipped.
+
+Implemented persistent belief reconstruction from public referee evidence.
 
 - Load the previous per-game belief snapshot before each turn.
 - Update empty/path evidence from failed own attempts.
@@ -51,6 +53,7 @@ Implement persistent belief reconstruction from public referee evidence.
 - Update pawn-density constraints from Wild 16 counted pawn tries.
 - Diff opponent turns from public messages without using hidden board state.
 - Persist updated belief after every move attempt and every completed turn.
+- Keep all updates public-safe: no hidden board state and no per-opponent model.
 
 Paper coverage:
 

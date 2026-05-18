@@ -34,6 +34,7 @@ class BeliefState:
     material_summary: dict[str, Any] = field(default_factory=dict)
     referee_log: tuple[dict[str, Any], ...] = ()
     referee_turns: tuple[dict[str, Any], ...] = ()
+    observed_referee_log_size: int = 0
     opponent_king: tuple[float, ...] = field(default_factory=lambda: (0.0,) * 64)
     opponent_pawns: tuple[float, ...] = field(default_factory=lambda: (0.0,) * 64)
     opponent_pieces: tuple[float, ...] = field(default_factory=lambda: (0.0,) * 64)
@@ -47,6 +48,8 @@ class BeliefState:
             raise ValueError("opponent_pawns must contain 64 probabilities")
         if len(self.opponent_pieces) != 64:
             raise ValueError("opponent_pieces must contain 64 probabilities")
+        if self.observed_referee_log_size < 0:
+            raise ValueError("observed_referee_log_size must be non-negative")
 
     @property
     def your_fen(self) -> str:
@@ -81,6 +84,7 @@ class BeliefState:
             material_summary=material_summary,
             referee_log=tuple(item for item in referee_log if isinstance(item, dict)),
             referee_turns=tuple(item for item in referee_turns if isinstance(item, dict)),
+            observed_referee_log_size=0,
             opponent_king=priors.king,
             opponent_pawns=priors.pawns,
             opponent_pieces=priors.pieces,

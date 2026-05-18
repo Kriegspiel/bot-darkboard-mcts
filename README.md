@@ -33,14 +33,15 @@ This repository now contains:
 - a minimal `BeliefState` value object
 - a minimal API runtime for a `wild16` bot account
 - hand-built opponent king/pawn/piece prior matrices from public material data
+- persistent per-game belief restoration and referee-evidence updates
 - a deterministic one-ply evaluator for move attempts
 - an implementation plan grounded in the public Darkboard papers
 - a versioned roadmap for covering the public Darkboard paper ideas
 - tests for the scaffold and runtime loop
 
 The championship-strength work is intentionally still ahead: probability
-matrix updates from referee evidence, referee-message simulation, UCT tree
-search, quiescence handling, game-log priors, and benchmarking.
+referee-message simulation, UCT tree search, quiescence handling, game-log
+priors, and benchmarking.
 
 The runtime is intentionally conservative:
 
@@ -50,6 +51,7 @@ The runtime is intentionally conservative:
 - auto-creates one open Wild 16 lobby game when below the active-game cap
 - samples compatible bot-vs-bot lobby joins at most once per minute with 10% probability
 - submits only public API move attempts and never receives hidden-board data
+- stores only its own per-game belief matrices and referee-log cursor in `.bot-state.json`
 
 ## Development
 

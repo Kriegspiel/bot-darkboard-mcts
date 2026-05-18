@@ -16,6 +16,8 @@ import requests
 
 from darkboard_mcts.belief import BeliefState
 from darkboard_mcts.belief import WILD16_RULESET
+from darkboard_mcts.evidence import apply_move_result_evidence
+from darkboard_mcts.evidence import restore_belief_snapshot
 from darkboard_mcts.search import ranked_actions
 
 
@@ -438,14 +440,23 @@ def serialize_belief(belief: BeliefState) -> dict[str, Any]:
     return {
         "game_id": belief.game_id,
         "ruleset": belief.ruleset,
+        "color": "white" if belief.color else "black",
         "ply": belief.ply,
         "your_fen": belief.your_fen,
         "legal_actions": list(belief.legal_actions),
         "possible_actions": list(belief.possible_actions),
+        "observed_referee_log_size": belief.observed_referee_log_size,
         "opponent_king": list(belief.opponent_king),
         "opponent_pawns": list(belief.opponent_pawns),
         "opponent_pieces": list(belief.opponent_pieces),
     }
+
+
+def restore_belief(game_id: str, belief: BeliefState) -> BeliefState:
+    state = load_state()
+    beliefs = state.get("beliefs")
+    snapshot = beliefs.get(game_id) if isinstance(beliefs, dict) else None
+    return restore_belief_snapshot(belief, snapshot if isinstance(snapshot, dict) else None)
 
 
 def save_belief(game_id: str, belief: BeliefState) -> None:
@@ -474,7 +485,7 @@ def maybe_play_game(game: dict[str, Any] | str) -> bool:
     if "move" not in (state.get("possible_actions") if isinstance(state.get("possible_actions"), list) else []):
         return False
 
-    belief = BeliefState.from_api_state(state, ruleset=ruleset)
+    belief = restore_belief(ref, BeliefState.from_api_state(state, ruleset=ruleset))
     save_belief(ref, belief)
     actions = ranked_actions(belief)
     if not actions:
@@ -483,6 +494,8 @@ def maybe_play_game(game: dict[str, Any] | str) -> bool:
     for index, uci in enumerate(actions):
         result = post_json(f"/game/{ref}/move", {"uci": uci})
         logger.debug("%s: tried %s -> %s", ref, uci, result.get("announcement"))
+        belief = apply_move_result_evidence(belief, uci=uci, result=result)
+        save_belief(ref, belief)
         if result.get("move_done"):
             return True
         if index < len(actions) - 1:

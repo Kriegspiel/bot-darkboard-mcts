@@ -6,7 +6,10 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
+import chess
+
 from darkboard_mcts import api
+from darkboard_mcts.belief import BeliefState
 
 
 def test_supported_rule_variants_are_wild16_only() -> None:
@@ -219,7 +222,86 @@ def test_maybe_play_game_retries_ranked_attempts_until_one_completes() -> None:
         ("/game/game-1/move", {"uci": "e2e4"}),
     ]
     assert saved["beliefs"]["game-1"]["your_fen"] == state["your_fen"]
+    assert saved["beliefs"]["game-1"]["observed_referee_log_size"] == 1
     sleep_mock.assert_called_once_with(api.FAILED_MOVE_RETRY_DELAY_SECONDS)
+
+
+def test_restore_belief_uses_saved_matrices_and_cursor() -> None:
+    current = BeliefState.from_api_state(
+        {
+            "game_id": "game-1",
+            "state": "active",
+            "turn": "white",
+            "your_color": "white",
+            "your_fen": "8/8/8/8/8/8/3P4/R6K w - - 0 1",
+            "allowed_moves": ["d2e3"],
+            "move_number": 1,
+            "material_summary": {"white": {"pieces_remaining": 10}, "black": {"pieces_remaining": 16}},
+            "referee_log": [],
+        }
+    )
+    pawns = [0.0] * 64
+    pawns[20] = 8.0
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        state_path = Path(temp_dir) / ".bot-state.json"
+        state_path.write_text(
+            json.dumps(
+                {
+                    "beliefs": {
+                        "game-1": {
+                            "game_id": "game-1",
+                            "ruleset": "wild16",
+                            "color": "white",
+                            "observed_referee_log_size": 7,
+                            "opponent_king": list(current.opponent_king),
+                            "opponent_pawns": pawns,
+                            "opponent_pieces": list(current.opponent_pieces),
+                        }
+                    }
+                }
+            )
+        )
+
+        with patch.object(api, "STATE_PATH", state_path):
+            restored = api.restore_belief("game-1", current)
+
+    assert restored.observed_referee_log_size == 0
+    assert restored.opponent_pawns[20] > current.opponent_pawns[20]
+
+
+def test_maybe_play_game_persists_failed_attempt_evidence() -> None:
+    state = {
+        "game_id": "game-1",
+        "state": "active",
+        "turn": "white",
+        "your_color": "white",
+        "your_fen": "8/8/8/8/8/8/3P4/R6K w - - 0 1",
+        "possible_actions": ["move"],
+        "allowed_moves": ["d2e3"],
+        "move_number": 1,
+        "material_summary": {"white": {"pieces_remaining": 10}, "black": {"pieces_remaining": 16}},
+        "referee_log": [],
+        "referee_turns": [],
+    }
+    prior = BeliefState.from_api_state(state)
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        state_path = Path(temp_dir) / ".bot-state.json"
+        with patch.object(api, "STATE_PATH", state_path):
+            with patch.object(api, "get_json", return_value=state):
+                with patch.object(api, "ranked_actions", return_value=("d2e3",)):
+                    with patch.object(
+                        api,
+                        "post_json",
+                        return_value={"announcement": "ILLEGAL_MOVE", "move_done": False},
+                    ):
+                        assert api.maybe_play_game({"game_id": "game-1", "rule_variant": "wild16"}) is False
+
+        saved = json.loads(state_path.read_text())
+
+    assert saved["beliefs"]["game-1"]["opponent_pawns"][chess.E3] < prior.opponent_pawns[chess.E3]
+    assert saved["beliefs"]["game-1"]["observed_referee_log_size"] == 1
 
 
 def test_maybe_play_game_skips_non_wild16_games() -> None:

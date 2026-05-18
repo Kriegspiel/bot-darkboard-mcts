@@ -26,14 +26,16 @@ used by the public Darkboard papers. In platform terms this means:
    - Converts `/game/{id}/state` payloads plus game metadata into `BeliefState`.
    - Submits selected attempts through `/game/{id}/move`.
    - Persists per-game belief snapshots between polling turns.
-   - Still needs richer belief reconstruction from previous snapshots.
+   - Restores previous snapshots before each turn and applies new public
+     referee evidence before ranking attempts.
 
 2. Probability matrices
    - Initial hand-built opponent king, pawn, and generic-piece 8x8 priors are
      implemented.
    - The priors normalize totals against public material counts.
-   - Still needs persistent updates after empty-square evidence, captures,
-     pawn-try counts, and opponent turns.
+   - Persistent evidence updates now adjust the matrices after failed own
+     attempts, legal non-captures, captures, check announcements, pawn-try
+     counts returned by the referee, and new public capture messages.
 
 3. Referee-message model
    - Initial move scoring uses the matrices for likely captures, check pressure,
@@ -56,6 +58,8 @@ Current deterministic baseline:
 - skips non-`wild16` games defensively
 - ranks currently exposed move attempts with a deterministic one-ply evaluator
 - retries attempts until one completes the turn or the ranked list is exhausted
+- carries forward per-game opponent matrices from `.bot-state.json`
+- applies referee evidence after each move attempt and on the next observed turn
 - defaults to listed, one active game, automatic Wild 16 lobby creation, and a
   10% chance to join compatible bot-created Wild 16 lobbies when sampled
 
