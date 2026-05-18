@@ -35,13 +35,14 @@ This repository now contains:
 - hand-built opponent king/pawn/piece prior matrices from public material data
 - persistent per-game belief restoration and referee-evidence updates
 - a public referee-message probability model for one-move outcomes
+- a bounded public-outcome MCTS core over move, referee, and opponent branches
 - a deterministic one-ply evaluator for move attempts
 - an implementation plan grounded in the public Darkboard papers
 - a versioned roadmap for covering the public Darkboard paper ideas
 - tests for the scaffold and runtime loop
 
-The championship-strength work is intentionally still ahead: UCT tree search,
-quiescence handling, game-log priors, and benchmarking.
+The championship-strength work is intentionally still ahead: deeper tactical
+continuation, game-log priors, tuning, and benchmarking.
 
 The runtime is intentionally conservative:
 
@@ -53,6 +54,16 @@ The runtime is intentionally conservative:
 - submits only public API move attempts and never receives hidden-board data
 - stores only its own per-game belief matrices and referee-log cursor in `.bot-state.json`
 - exposes one-move model weights through `DARKBOARD_MODEL_*` environment overrides
+- searches public referee outcomes with bounded MCTS and falls back to the deterministic evaluator on malformed state
+
+MCTS runtime controls:
+
+- `DARKBOARD_MCTS_ENABLED`
+- `DARKBOARD_MCTS_TIME_BUDGET_SECONDS` (clamped to 0-8 seconds)
+- `DARKBOARD_MCTS_MAX_ITERATIONS`
+- `DARKBOARD_MCTS_EXPLORATION`
+- `DARKBOARD_MCTS_SELECTION_RULE` (`visits` or `value`)
+- `DARKBOARD_MCTS_SEED`
 
 Outcome model weights currently include:
 

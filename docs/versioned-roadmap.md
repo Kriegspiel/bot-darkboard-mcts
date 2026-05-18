@@ -85,7 +85,9 @@ Paper coverage:
 
 ### `0.6.0` - MCTS Approach C core
 
-Implement the successful later-paper search shape.
+Status: shipped.
+
+Implemented the first successful later-paper search shape.
 
 - Build a root from the current public belief state.
 - Expand candidate player attempts from the API-exposed move attempts.
@@ -99,6 +101,7 @@ Implement the successful later-paper search shape.
 - Support time budgets of 1, 2, 4, and 8 seconds per move.
 - Return a move using an empirically selected rule: most visited or best value.
 - Fall back to the deterministic evaluator on timeout or malformed state.
+- Keep the tree over public referee outcomes, not sampled hidden boards.
 
 Paper coverage:
 
