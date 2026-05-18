@@ -35,6 +35,7 @@ This repository now contains:
 - hand-built opponent king/pawn/piece prior matrices from public material data
 - a deterministic one-ply evaluator for move attempts
 - an implementation plan grounded in the public Darkboard papers
+- a versioned roadmap for covering the public Darkboard paper ideas
 - tests for the scaffold and runtime loop
 
 The championship-strength work is intentionally still ahead: probability
