@@ -72,6 +72,7 @@ Current deterministic baseline:
 - adjusts volatile leaves with public-state quiescence estimates
 - adds metaposition-inspired public-safe positional evaluation underneath MCTS
 - blends in reviewed aggregate priors from an optional `priors.json`
+- can generate repeatable benchmark reports from completed Wild 16 archives
 - retries attempts until one completes the turn or the ranked list is exhausted
 - carries forward per-game opponent matrices from `.bot-state.json`
 - applies referee evidence after each move attempt and on the next observed turn
@@ -104,10 +105,17 @@ Current deterministic baseline:
      environment overrides.
 
 7. Benchmarks
-   - Random bot matchups.
-   - Simple-heuristics bot matchups.
-   - Fixed opening-position tactical tests.
-   - Time-budget sweeps at 1s, 2s, 4s, and 8s per move.
+   - Done for the initial benchmark reporting workflow.
+   - Generate aggregate reports from prepared completed Wild 16 archive exports
+     with `darkboard-benchmark-report`.
+   - Use a manifest to require random bot, simple-heuristics, provider-backed
+     model bots when available, previous-version, and self-play matchups.
+   - Report bot commit, opponent commits, time budget, game count, ruleset,
+     win/loss/draw counts, illegal-attempt rate, average tries per completed
+     move, average turns, timeout rate, and representative failure modes.
+   - Treat incomplete manifest coverage as a blocker for public strength claims.
+   - Keep actual game scheduling outside this bot runtime so benchmarks remain
+     explicit, reviewed, and reproducible.
 
 8. Priors and learning
    - Start with hand-built priors.

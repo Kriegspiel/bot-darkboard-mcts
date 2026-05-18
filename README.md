@@ -40,13 +40,15 @@ This repository now contains:
   promotion races
 - a metaposition-inspired matrix abstraction for public-safe positional scoring
 - an optional reviewed aggregate `priors.json` loader and offline generator
+- a repeatable benchmark report generator for completed Wild 16 archive exports
 - a deterministic one-ply evaluator for move attempts
 - an implementation plan grounded in the public Darkboard papers
 - a versioned roadmap for covering the public Darkboard paper ideas
 - tests for the scaffold and runtime loop
 
-The championship-strength work is intentionally still ahead: reviewed game-data
-collection, tuning, and benchmarking.
+The championship-strength work is intentionally still ahead: reviewed match
+data collection and tuning. Benchmark reports now exist, but strength claims
+still require complete coverage and enough games.
 
 The runtime is intentionally conservative:
 
@@ -119,6 +121,17 @@ Aggregate prior controls:
 
 See [`docs/priors-format.md`](docs/priors-format.md) for the reviewed file
 format and data policy.
+
+Benchmark reporting:
+
+- `darkboard-benchmark-report <archive.json|jsonl> <report.md>` generates a
+  Markdown report from prepared completed Wild 16 archive exports
+- `--manifest benchmark.json` adds required matchups, target game counts,
+  commits, time budgets, and provider-availability flags
+- `--json-output report.json` writes the machine-readable report payload
+
+See [`docs/benchmarking.md`](docs/benchmarking.md) for the manifest schema and
+coverage rules.
 
 ## Development
 
