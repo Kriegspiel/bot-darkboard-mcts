@@ -48,10 +48,18 @@ used by the public Darkboard papers. In platform terms this means:
    - Still needs MCTS node expansion over the modeled referee outcomes.
 
 4. MCTS Approach C
-   - Build a three-tier tree: player move, own referee outcome, opponent outcome.
-   - Use UCT for move selection.
-   - Evaluate each new node with weighted one-move outcome probabilities.
-   - Use max-style backup as described for Approach C.
+   - Initial bounded MCTS core builds a three-tier public-outcome tree:
+     player move, own referee outcome, opponent outcome.
+   - UCT allocates iterations across API-exposed move attempts.
+   - New nodes use weighted one-move outcome probabilities from the referee
+     model.
+   - Backup tracks max-observed branch value while retaining average value for
+     UCT selection.
+   - Runtime config supports 1s, 2s, 4s, and 8s budgets through
+     `DARKBOARD_MCTS_TIME_BUDGET_SECONDS`, with `DARKBOARD_MCTS_MAX_ITERATIONS`
+     as a second bound.
+   - Move return can use most visited or best value via
+     `DARKBOARD_MCTS_SELECTION_RULE`.
 
 Current deterministic baseline:
 
@@ -60,6 +68,7 @@ Current deterministic baseline:
 - skips non-`wild16` games defensively
 - ranks currently exposed move attempts with a deterministic one-ply evaluator
 - scores attempts with a one-move public referee outcome model
+- ranks attempts with bounded public-outcome MCTS
 - retries attempts until one completes the turn or the ranked list is exhausted
 - carries forward per-game opponent matrices from `.bot-state.json`
 - applies referee evidence after each move attempt and on the next observed turn
