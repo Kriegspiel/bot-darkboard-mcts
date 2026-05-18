@@ -197,14 +197,20 @@ Paper coverage:
 
 ### `1.0.0` - benchmarked public bot
 
-Promote the bot from research runtime to benchmarked opponent.
+Status: shipped as the benchmark/reporting baseline.
 
-- Run repeatable Wild 16 matches against:
+Promote the bot from research runtime to a benchmarkable opponent with
+repeatable report generation. Public strength claims still require a complete
+benchmark manifest and enough completed games.
+
+- Define a benchmark manifest for repeatable Wild 16 matches against:
   - random bot
   - simple-heuristics bot
   - current model bots when provider availability allows
   - previous Darkboard-inspired bot versions
   - self-play across time budgets
+- Add `darkboard-benchmark-report` to read prepared completed Wild 16 archive
+  exports and produce Markdown plus optional JSON.
 - Report:
   - bot commit
   - opponent commits
@@ -217,6 +223,8 @@ Promote the bot from research runtime to benchmarked opponent.
   - average turns
   - timeout rate
   - representative failure modes
+- Mark missing required matchups as coverage gaps.
+- Mark unavailable provider-backed model bots as skipped rather than failed.
 - Publish a public evaluation report before making strength claims.
 
 Paper coverage:
