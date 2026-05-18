@@ -141,7 +141,7 @@ def register_bot() -> None:
                 "KRIEGSPIEL_BOT_DESCRIPTION",
                 "Darkboard-inspired Wild 16 bot runtime.",
             ),
-            "listed": bool_env("KRIEGSPIEL_BOT_LISTED", False),
+            "listed": bool_env("KRIEGSPIEL_BOT_LISTED", True),
             "supported_rule_variants": supported_rule_variants(),
         },
         timeout=DEFAULT_TIMEOUT_SECONDS,
