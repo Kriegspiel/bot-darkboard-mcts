@@ -51,7 +51,7 @@ Current deterministic baseline:
 - ranks currently exposed move attempts deterministically
 - retries attempts until one completes the turn or the ranked list is exhausted
 - defaults to listed, one active game, automatic Wild 16 lobby creation, and a
-  50% chance to join compatible bot-created Wild 16 lobbies when sampled
+  10% chance to join compatible bot-created Wild 16 lobbies when sampled
 
 5. Quiescence
    - Continue evaluation through forced or likely recapture chains.

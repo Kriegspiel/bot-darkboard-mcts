@@ -75,7 +75,7 @@ def test_register_bot_can_be_kept_unlisted_by_env() -> None:
 def test_botplay_policy_defaults_allow_one_active_game_and_bot_lobbies() -> None:
     with patch.dict(os.environ, {}, clear=True):
         assert api.auto_create_enabled() is True
-        assert api.bot_game_pick_probability() == 0.5
+        assert api.bot_game_pick_probability() == 0.1
         assert api.max_active_games() == 1
 
 
@@ -103,7 +103,7 @@ def test_botplay_config_migration_updates_launch_defaults_once() -> None:
                 api.apply_botplay_config_migration(env_path)
 
                 assert api.auto_create_enabled() is True
-                assert api.bot_game_pick_probability() == 0.5
+                assert api.bot_game_pick_probability() == 0.1
                 assert api.max_active_games() == 1
 
         migrated_env = env_path.read_text()
@@ -111,7 +111,7 @@ def test_botplay_config_migration_updates_launch_defaults_once() -> None:
 
     assert "KRIEGSPIEL_BOT_TOKEN=secret-token" in migrated_env
     assert "KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME=true" in migrated_env
-    assert "BOT_GAME_PICK_PROBABILITY=0.5" in migrated_env
+    assert "BOT_GAME_PICK_PROBABILITY=0.1" in migrated_env
     assert saved_state["token"] == "secret-token"
     assert saved_state["config_migrations"][api.BOTPLAY_CONFIG_MIGRATION] is True
 
@@ -120,7 +120,7 @@ def test_botplay_config_migration_does_not_rewrite_after_marker() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         env_path = Path(temp_dir) / ".env"
         state_path = Path(temp_dir) / ".bot-state.json"
-        env_path.write_text("KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME=false\nBOT_GAME_PICK_PROBABILITY=0.1\n")
+        env_path.write_text("KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME=false\nBOT_GAME_PICK_PROBABILITY=0.5\n")
         state_path.write_text(json.dumps({"config_migrations": {api.BOTPLAY_CONFIG_MIGRATION: True}}))
 
         with patch.object(api, "STATE_PATH", state_path):
@@ -129,11 +129,55 @@ def test_botplay_config_migration_does_not_rewrite_after_marker() -> None:
                 api.apply_botplay_config_migration(env_path)
 
                 assert api.auto_create_enabled() is False
-                assert api.bot_game_pick_probability() == 0.1
+                assert api.bot_game_pick_probability() == 0.5
 
         unchanged_env = env_path.read_text()
 
-    assert unchanged_env == "KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME=false\nBOT_GAME_PICK_PROBABILITY=0.1\n"
+    assert unchanged_env == "KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME=false\nBOT_GAME_PICK_PROBABILITY=0.5\n"
+
+
+def test_join_probability_config_migration_reduces_existing_half_probability() -> None:
+    with tempfile.TemporaryDirectory() as temp_dir:
+        env_path = Path(temp_dir) / ".env"
+        state_path = Path(temp_dir) / ".bot-state.json"
+        env_path.write_text("KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME=true\nBOT_GAME_PICK_PROBABILITY=0.5\n")
+        state_path.write_text(json.dumps({"config_migrations": {api.BOTPLAY_CONFIG_MIGRATION: True}}))
+
+        with patch.object(api, "STATE_PATH", state_path):
+            with patch.dict(os.environ, {}, clear=True):
+                api.load_env_file(env_path)
+                api.apply_join_probability_config_migration(env_path)
+
+                assert api.auto_create_enabled() is True
+                assert api.bot_game_pick_probability() == 0.1
+
+        migrated_env = env_path.read_text()
+        saved_state = json.loads(state_path.read_text())
+
+    assert "BOT_GAME_PICK_PROBABILITY=0.1" in migrated_env
+    assert saved_state["config_migrations"][api.BOTPLAY_CONFIG_MIGRATION] is True
+    assert saved_state["config_migrations"][api.BOT_JOIN_PROBABILITY_CONFIG_MIGRATION] is True
+
+
+def test_join_probability_config_migration_preserves_explicit_non_half_probability() -> None:
+    with tempfile.TemporaryDirectory() as temp_dir:
+        env_path = Path(temp_dir) / ".env"
+        state_path = Path(temp_dir) / ".bot-state.json"
+        env_path.write_text("BOT_GAME_PICK_PROBABILITY=0.2\n")
+        state_path.write_text("{}")
+
+        with patch.object(api, "STATE_PATH", state_path):
+            with patch.dict(os.environ, {}, clear=True):
+                api.load_env_file(env_path)
+                api.apply_join_probability_config_migration(env_path)
+
+                assert api.bot_game_pick_probability() == 0.2
+
+        unchanged_env = env_path.read_text()
+        saved_state = json.loads(state_path.read_text())
+
+    assert unchanged_env == "BOT_GAME_PICK_PROBABILITY=0.2\n"
+    assert saved_state["config_migrations"][api.BOT_JOIN_PROBABILITY_CONFIG_MIGRATION] is True
 
 
 def test_maybe_play_game_retries_ranked_attempts_until_one_completes() -> None:

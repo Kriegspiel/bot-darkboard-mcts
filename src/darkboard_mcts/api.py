@@ -27,9 +27,10 @@ BOT_JOIN_COOLDOWN_SECONDS = 60
 FAILED_MOVE_RETRY_DELAY_SECONDS = 1
 SUPPORTED_RULE_VARIANTS = (WILD16_RULESET,)
 BOTPLAY_CONFIG_MIGRATION = "darkboard_botplay_config_20260518"
+BOT_JOIN_PROBABILITY_CONFIG_MIGRATION = "darkboard_join_probability_20260518"
 BOTPLAY_CONFIG_DEFAULTS = {
     "KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME": "true",
-    "BOT_GAME_PICK_PROBABILITY": "0.5",
+    "BOT_GAME_PICK_PROBABILITY": "0.1",
     "KRIEGSPIEL_MAX_ACTIVE_GAMES": "1",
 }
 BOTPLAY_CONFIG_LEGACY_VALUES = {
@@ -100,7 +101,7 @@ def max_active_games() -> int:
 
 
 def bot_game_pick_probability() -> float:
-    return float_env("BOT_GAME_PICK_PROBABILITY", 0.5, minimum=0.0, maximum=1.0)
+    return float_env("BOT_GAME_PICK_PROBABILITY", 0.1, minimum=0.0, maximum=1.0)
 
 
 def load_state() -> dict[str, Any]:
@@ -202,6 +203,57 @@ def apply_botplay_config_migration(env_path: str | Path = ENV_PATH) -> None:
         logger.info("updated bot-vs-bot runtime config in %s", path)
 
     migrations[BOTPLAY_CONFIG_MIGRATION] = True
+    state["config_migrations"] = migrations
+    save_state(state)
+
+
+def apply_join_probability_config_migration(env_path: str | Path = ENV_PATH) -> None:
+    """Reduce existing bot-vs-bot join sampling from 50% to 10% once."""
+
+    state = load_state()
+    migrations = state.get("config_migrations")
+    if not isinstance(migrations, dict):
+        migrations = {}
+    if migrations.get(BOT_JOIN_PROBABILITY_CONFIG_MIGRATION):
+        return
+
+    path = Path(env_path)
+    if not path.exists():
+        return
+
+    lines = path.read_text().splitlines()
+    updated_lines: list[str] = []
+    changed = False
+    found_probability = False
+
+    for line in lines:
+        assignment = _split_env_assignment(line)
+        if assignment is None:
+            updated_lines.append(line)
+            continue
+        key, value = assignment
+        if key != "BOT_GAME_PICK_PROBABILITY":
+            updated_lines.append(line)
+            continue
+
+        found_probability = True
+        if _env_value_for_compare(value) in {"0.5", ".5", "0.50"}:
+            updated_lines.append("BOT_GAME_PICK_PROBABILITY=0.1")
+            os.environ["BOT_GAME_PICK_PROBABILITY"] = "0.1"
+            changed = True
+        else:
+            updated_lines.append(line)
+
+    if not found_probability:
+        updated_lines.append("BOT_GAME_PICK_PROBABILITY=0.1")
+        os.environ["BOT_GAME_PICK_PROBABILITY"] = "0.1"
+        changed = True
+
+    if changed:
+        path.write_text("\n".join(updated_lines) + "\n")
+        logger.info("updated bot-vs-bot join probability in %s", path)
+
+    migrations[BOT_JOIN_PROBABILITY_CONFIG_MIGRATION] = True
     state["config_migrations"] = migrations
     save_state(state)
 
@@ -464,6 +516,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     load_env_file()
     apply_botplay_config_migration()
+    apply_join_probability_config_migration()
     maybe_restore_token()
     args = parse_args(argv or sys.argv[1:])
 

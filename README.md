@@ -46,7 +46,7 @@ The runtime is intentionally conservative:
 - registers listed by default
 - defaults to one active game
 - auto-creates one open Wild 16 lobby game when below the active-game cap
-- samples compatible bot-vs-bot lobby joins at most once per minute with 50% probability
+- samples compatible bot-vs-bot lobby joins at most once per minute with 10% probability
 - submits only public API move attempts and never receives hidden-board data
 
 ## Development
