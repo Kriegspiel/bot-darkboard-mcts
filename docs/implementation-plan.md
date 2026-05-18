@@ -38,12 +38,14 @@ used by the public Darkboard papers. In platform terms this means:
      counts returned by the referee, and new public capture messages.
 
 3. Referee-message model
-   - Initial move scoring uses the matrices for likely captures, check pressure,
-     pawn progress, recapture targets, and simple safety penalties.
-   - Estimate move legality from path occupancy and pin/control probabilities.
-   - Refine capture probabilities from destination-square occupancy.
-   - Refine check probabilities from king-density over attacked squares.
-   - Estimate opponent retaliation and capture risk.
+   - Initial probability model estimates legality, path blockers, captures,
+     check messages, recapture targets, checking-piece vulnerability, and
+     exposed-piece capture risk from public belief matrices.
+   - Model weights are configurable through `DARKBOARD_MODEL_*` environment
+     overrides.
+   - Initial move scoring consumes the model while keeping the deterministic
+     one-ply evaluator as the fallback.
+   - Still needs MCTS node expansion over the modeled referee outcomes.
 
 4. MCTS Approach C
    - Build a three-tier tree: player move, own referee outcome, opponent outcome.
@@ -57,6 +59,7 @@ Current deterministic baseline:
 - polls `/game/mine/active`
 - skips non-`wild16` games defensively
 - ranks currently exposed move attempts with a deterministic one-ply evaluator
+- scores attempts with a one-move public referee outcome model
 - retries attempts until one completes the turn or the ranked list is exhausted
 - carries forward per-game opponent matrices from `.bot-state.json`
 - applies referee evidence after each move attempt and on the next observed turn

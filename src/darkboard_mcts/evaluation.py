@@ -3,23 +3,20 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import logging
 import re
 
 import chess
 
 from darkboard_mcts.belief import BeliefState
+from darkboard_mcts.outcome_model import GENERIC_OPPONENT_PIECE_VALUE
+from darkboard_mcts.outcome_model import OutcomeModelWeights
+from darkboard_mcts.outcome_model import PIECE_VALUES
+from darkboard_mcts.outcome_model import estimate_referee_outcome
 
 
-PIECE_VALUES = {
-    chess.PAWN: 100.0,
-    chess.KNIGHT: 320.0,
-    chess.BISHOP: 330.0,
-    chess.ROOK: 500.0,
-    chess.QUEEN: 900.0,
-    chess.KING: 0.0,
-}
-GENERIC_OPPONENT_PIECE_VALUE = 360.0
 CAPTURE_SQUARE_PATTERN = re.compile(r"\b([A-H][1-8])\b", re.IGNORECASE)
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -31,6 +28,13 @@ class ActionScore:
     recapture_bonus: float = 0.0
     development: float = 0.0
     safety_penalty: float = 0.0
+    legality_penalty: float = 0.0
+    checking_piece_vulnerability: float = 0.0
+    legal_probability: float = 1.0
+    capture_probability: float = 0.0
+    check_probability: float = 0.0
+    opponent_recapture_probability: float = 0.0
+    exposed_piece_capture_probability: float = 0.0
 
 
 def ranked_action_scores(belief: BeliefState) -> tuple[ActionScore, ...]:
@@ -53,15 +57,44 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
     if piece is None or piece.color != belief.color:
         return ActionScore(uci=uci, score=0.0)
 
+    weights = OutcomeModelWeights.from_env()
+    latest_capture_square = _latest_capture_square(belief)
+    outcome = estimate_referee_outcome(
+        belief,
+        board=board,
+        move=move,
+        piece=piece,
+        latest_capture_square=latest_capture_square,
+    )
     piece_value = PIECE_VALUES.get(piece.piece_type, GENERIC_OPPONENT_PIECE_VALUE)
-    capture_value = _capture_value(belief, move=move, piece=piece)
-    check_pressure = _check_pressure(belief, board=board, move=move, piece=piece)
-    recapture_bonus = _recapture_bonus(belief, move=move)
-    development = _development_score(board=board, color=belief.color, move=move, piece=piece)
-    safety_penalty = _safety_penalty(belief, target=move.to_square, piece_value=piece_value)
+    development_factor = weights.legal_development_floor + (
+        (1.0 - weights.legal_development_floor) * outcome.legal_probability
+    )
+    capture_probability_factor = outcome.legal_probability if outcome.expected_capture_value >= 0 else 1.0
+    capture_value = outcome.expected_capture_value * weights.capture_value_scale * capture_probability_factor
+    check_pressure = outcome.check_probability * weights.check_pressure * outcome.legal_probability
+    recapture_bonus = outcome.recapture_probability * weights.recapture_bonus * outcome.legal_probability
+    development = (
+        _development_score(board=board, color=belief.color, move=move, piece=piece)
+        * weights.development_scale
+        * development_factor
+    )
+    safety_penalty = outcome.exposed_piece_capture_probability * piece_value * weights.safety_penalty_scale
+    checking_piece_vulnerability = (
+        outcome.checking_piece_vulnerability * piece_value * weights.checking_piece_vulnerability_scale
+    )
+    legality_penalty = outcome.illegal_probability * weights.illegal_attempt_penalty
 
-    score = capture_value + check_pressure + recapture_bonus + development - safety_penalty
-    return ActionScore(
+    score = (
+        capture_value
+        + check_pressure
+        + recapture_bonus
+        + development
+        - safety_penalty
+        - checking_piece_vulnerability
+        - legality_penalty
+    )
+    action_score = ActionScore(
         uci=uci,
         score=score,
         capture_value=capture_value,
@@ -69,7 +102,17 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
         recapture_bonus=recapture_bonus,
         development=development,
         safety_penalty=safety_penalty,
+        legality_penalty=legality_penalty,
+        checking_piece_vulnerability=checking_piece_vulnerability,
+        legal_probability=outcome.legal_probability,
+        capture_probability=outcome.capture_probability,
+        check_probability=outcome.check_probability,
+        opponent_recapture_probability=outcome.recapture_probability,
+        exposed_piece_capture_probability=outcome.exposed_piece_capture_probability,
     )
+    if logger.isEnabledFor(logging.DEBUG):
+        logger.debug("action_score %s", action_score)
+    return action_score
 
 
 def _visible_board(fen: str) -> chess.Board | None:
@@ -77,40 +120,6 @@ def _visible_board(fen: str) -> chess.Board | None:
         return chess.Board(fen)
     except ValueError:
         return None
-
-
-def _capture_value(belief: BeliefState, *, move: chess.Move, piece: chess.Piece) -> float:
-    pawn_density = _density_at(belief.opponent_pawns, move.to_square)
-    piece_density = _density_at(belief.opponent_pieces, move.to_square)
-    if piece.piece_type == chess.PAWN and chess.square_file(move.from_square) == chess.square_file(move.to_square):
-        return -min(1.0, pawn_density + piece_density) * 80.0
-    return (min(1.0, pawn_density) * PIECE_VALUES[chess.PAWN]) + (
-        min(1.0, piece_density) * GENERIC_OPPONENT_PIECE_VALUE
-    )
-
-
-def _check_pressure(belief: BeliefState, *, board: chess.Board, move: chess.Move, piece: chess.Piece) -> float:
-    attacks = _attacks_after_move(board=board, move=move, piece=piece)
-    king_density = sum(_density_at(belief.opponent_king, square) for square in attacks)
-    return min(1.0, king_density) * 180.0
-
-
-def _attacks_after_move(*, board: chess.Board, move: chess.Move, piece: chess.Piece) -> chess.SquareSet:
-    if piece.piece_type == chess.PAWN:
-        return chess.SquareSet(chess.BB_PAWN_ATTACKS[piece.color][move.to_square])
-
-    projected = board.copy(stack=False)
-    projected.remove_piece_at(move.from_square)
-    promoted_type = move.promotion or piece.piece_type
-    projected.set_piece_at(move.to_square, chess.Piece(promoted_type, piece.color))
-    return projected.attacks(move.to_square)
-
-
-def _recapture_bonus(belief: BeliefState, *, move: chess.Move) -> float:
-    square = _latest_capture_square(belief)
-    if square is None or square != move.to_square:
-        return 0.0
-    return 260.0
 
 
 def _latest_capture_square(belief: BeliefState) -> chess.Square | None:
@@ -151,7 +160,11 @@ def _development_score(*, board: chess.Board, color: chess.Color, move: chess.Mo
     if piece.piece_type in {chess.KNIGHT, chess.BISHOP} and _is_home_minor(color=color, square=move.from_square):
         return 32.0 + _centrality(move.to_square)
 
-    if piece.piece_type == chess.ROOK and _file_has_no_own_pawns(board=board, color=color, file=chess.square_file(move.to_square)):
+    if piece.piece_type == chess.ROOK and _file_has_no_own_pawns(
+        board=board,
+        color=color,
+        file=chess.square_file(move.to_square),
+    ):
         return 18.0
 
     return _centrality(move.to_square) - _centrality(move.from_square)
@@ -174,18 +187,3 @@ def _centrality(square: chess.Square) -> float:
     file = chess.square_file(square)
     rank = chess.square_rank(square)
     return 7.0 - (abs(file - 3.5) + abs(rank - 3.5))
-
-
-def _safety_penalty(belief: BeliefState, *, target: chess.Square, piece_value: float) -> float:
-    pawn_attack_density = 0.0
-    opponent = not belief.color
-    for square, density in enumerate(belief.opponent_pawns):
-        if density <= 0:
-            continue
-        if target in chess.SquareSet(chess.BB_PAWN_ATTACKS[opponent][square]):
-            pawn_attack_density += density
-    return min(1.0, pawn_attack_density) * piece_value * 0.25
-
-
-def _density_at(matrix: tuple[float, ...], square: chess.Square) -> float:
-    return matrix[square] if 0 <= square < len(matrix) else 0.0

@@ -76,3 +76,17 @@ def test_ranked_actions_reward_high_value_promotion() -> None:
     )
 
     assert ranked_actions(belief)[0] == "e7e8q"
+
+
+def test_action_scores_include_referee_outcome_probabilities() -> None:
+    belief = BeliefState(
+        color=chess.WHITE,
+        visible_fen="8/8/8/8/8/8/3P4/4K3 w - - 0 1",
+        legal_actions=("d2e3",),
+    )
+
+    score = ranked_action_scores(belief)[0]
+
+    assert score.legal_probability == pytest.approx(0.0)
+    assert score.capture_probability == pytest.approx(0.0)
+    assert score.legality_penalty > 0

@@ -34,14 +34,14 @@ This repository now contains:
 - a minimal API runtime for a `wild16` bot account
 - hand-built opponent king/pawn/piece prior matrices from public material data
 - persistent per-game belief restoration and referee-evidence updates
+- a public referee-message probability model for one-move outcomes
 - a deterministic one-ply evaluator for move attempts
 - an implementation plan grounded in the public Darkboard papers
 - a versioned roadmap for covering the public Darkboard paper ideas
 - tests for the scaffold and runtime loop
 
-The championship-strength work is intentionally still ahead: probability
-referee-message simulation, UCT tree search, quiescence handling, game-log
-priors, and benchmarking.
+The championship-strength work is intentionally still ahead: UCT tree search,
+quiescence handling, game-log priors, and benchmarking.
 
 The runtime is intentionally conservative:
 
@@ -52,6 +52,18 @@ The runtime is intentionally conservative:
 - samples compatible bot-vs-bot lobby joins at most once per minute with 10% probability
 - submits only public API move attempts and never receives hidden-board data
 - stores only its own per-game belief matrices and referee-log cursor in `.bot-state.json`
+- exposes one-move model weights through `DARKBOARD_MODEL_*` environment overrides
+
+Outcome model weights currently include:
+
+- `DARKBOARD_MODEL_CAPTURE_VALUE_SCALE`
+- `DARKBOARD_MODEL_CHECK_PRESSURE`
+- `DARKBOARD_MODEL_RECAPTURE_BONUS`
+- `DARKBOARD_MODEL_ILLEGAL_ATTEMPT_PENALTY`
+- `DARKBOARD_MODEL_SAFETY_PENALTY_SCALE`
+- `DARKBOARD_MODEL_CHECKING_PIECE_VULNERABILITY_SCALE`
+- `DARKBOARD_MODEL_DEVELOPMENT_SCALE`
+- `DARKBOARD_MODEL_LEGAL_DEVELOPMENT_FLOOR`
 
 ## Development
 
