@@ -13,6 +13,8 @@ from darkboard_mcts.outcome_model import GENERIC_OPPONENT_PIECE_VALUE
 from darkboard_mcts.outcome_model import OutcomeModelWeights
 from darkboard_mcts.outcome_model import PIECE_VALUES
 from darkboard_mcts.outcome_model import estimate_referee_outcome
+from darkboard_mcts.quiescence import QuiescenceWeights
+from darkboard_mcts.quiescence import evaluate_quiescence
 
 
 CAPTURE_SQUARE_PATTERN = re.compile(r"\b([A-H][1-8])\b", re.IGNORECASE)
@@ -35,6 +37,12 @@ class ActionScore:
     check_probability: float = 0.0
     opponent_recapture_probability: float = 0.0
     exposed_piece_capture_probability: float = 0.0
+    quiescence_adjustment: float = 0.0
+    capture_chain_value: float = 0.0
+    recapture_chain_value: float = 0.0
+    immediate_loss_penalty: float = 0.0
+    promotion_race_bonus: float = 0.0
+    informative_probe_penalty: float = 0.0
 
 
 def ranked_action_scores(belief: BeliefState) -> tuple[ActionScore, ...]:
@@ -66,6 +74,15 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
         piece=piece,
         latest_capture_square=latest_capture_square,
     )
+    quiescence = evaluate_quiescence(
+        belief,
+        board=board,
+        move=move,
+        piece=piece,
+        outcome=outcome,
+        latest_capture_square=latest_capture_square,
+        weights=QuiescenceWeights.from_env(),
+    )
     piece_value = PIECE_VALUES.get(piece.piece_type, GENERIC_OPPONENT_PIECE_VALUE)
     development_factor = weights.legal_development_floor + (
         (1.0 - weights.legal_development_floor) * outcome.legal_probability
@@ -93,6 +110,7 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
         - safety_penalty
         - checking_piece_vulnerability
         - legality_penalty
+        + quiescence.adjustment
     )
     action_score = ActionScore(
         uci=uci,
@@ -109,6 +127,12 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
         check_probability=outcome.check_probability,
         opponent_recapture_probability=outcome.recapture_probability,
         exposed_piece_capture_probability=outcome.exposed_piece_capture_probability,
+        quiescence_adjustment=quiescence.adjustment,
+        capture_chain_value=quiescence.capture_chain_value,
+        recapture_chain_value=quiescence.recapture_chain_value,
+        immediate_loss_penalty=quiescence.immediate_loss_penalty,
+        promotion_race_bonus=quiescence.promotion_race_bonus,
+        informative_probe_penalty=quiescence.informative_probe_penalty,
     )
     if logger.isEnabledFor(logging.DEBUG):
         logger.debug("action_score %s", action_score)

@@ -45,7 +45,7 @@ used by the public Darkboard papers. In platform terms this means:
      overrides.
    - Initial move scoring consumes the model while keeping the deterministic
      one-ply evaluator as the fallback.
-   - Still needs MCTS node expansion over the modeled referee outcomes.
+   - The model now feeds MCTS node expansion over public referee outcomes.
 
 4. MCTS Approach C
    - Initial bounded MCTS core builds a three-tier public-outcome tree:
@@ -69,6 +69,7 @@ Current deterministic baseline:
 - ranks currently exposed move attempts with a deterministic one-ply evaluator
 - scores attempts with a one-move public referee outcome model
 - ranks attempts with bounded public-outcome MCTS
+- adjusts volatile leaves with public-state quiescence estimates
 - retries attempts until one completes the turn or the ranked list is exhausted
 - carries forward per-game opponent matrices from `.bot-state.json`
 - applies referee evidence after each move attempt and on the next observed turn
@@ -76,8 +77,16 @@ Current deterministic baseline:
   10% chance to join compatible bot-created Wild 16 lobbies when sampled
 
 5. Quiescence
-   - Continue evaluation through forced or likely recapture chains.
-   - Prefer immediate recaptures when the public log reveals a capture square.
+   - Initial deterministic public-state quiescence is implemented.
+   - Rewards likely capture and recapture chains, especially when the public log
+     reveals a capture square.
+   - Penalizes moves that likely lose high-value pieces immediately.
+   - Evaluates checking-piece vulnerability through the quiescence layer.
+   - Adds promotion-race bonuses for near-promoting pawns and promotions.
+   - Penalizes informative probes when modeled material risk dominates expected
+     tactical value.
+   - Quiescence weights are configurable through `DARKBOARD_QUIESCENCE_*`
+     environment overrides.
 
 6. Benchmarks
    - Random bot matchups.
