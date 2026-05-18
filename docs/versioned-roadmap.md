@@ -63,7 +63,9 @@ Paper coverage:
 
 ### `0.5.0` - referee-message probability model
 
-Implement the first full outcome model over public/referee messages.
+Status: shipped.
+
+Implemented the first outcome model over public/referee messages.
 
 - Estimate move legality from path occupancy, blockers, and king-safety risk.
 - Estimate capture probabilities from destination-square pawn and piece density.
@@ -73,6 +75,8 @@ Implement the first full outcome model over public/referee messages.
 - Estimate probability that the opponent captures exposed friendly pieces.
 - Expose model weights as config so they can be tuned without code changes.
 - Log score components in debug mode for post-game analysis.
+- Keep the model deterministic and public-state only so it can feed the later
+  UCT tree.
 
 Paper coverage:
 
