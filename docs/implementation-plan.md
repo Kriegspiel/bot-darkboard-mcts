@@ -70,6 +70,7 @@ Current deterministic baseline:
 - scores attempts with a one-move public referee outcome model
 - ranks attempts with bounded public-outcome MCTS
 - adjusts volatile leaves with public-state quiescence estimates
+- adds metaposition-inspired public-safe positional evaluation underneath MCTS
 - retries attempts until one completes the turn or the ranked list is exhausted
 - carries forward per-game opponent matrices from `.bot-state.json`
 - applies referee evidence after each move attempt and on the next observed turn
@@ -88,13 +89,26 @@ Current deterministic baseline:
    - Quiescence weights are configurable through `DARKBOARD_QUIESCENCE_*`
      environment overrides.
 
-6. Benchmarks
+6. Metaposition abstraction
+   - Initial metaposition-inspired matrix abstraction is implemented.
+   - Builds coarse public-safe state matrices from visible own pieces plus
+     opponent king, pawn, and piece belief matrices.
+   - Provides helpers for possible king, pawn, piece, and aggregate occupancy.
+   - Adds evaluation terms for material balance, pawn advancement, promotion
+     pressure, open files, friendly passed-pawn pressure, controlled squares,
+     king-edge pressure, and checkmating pressure.
+   - Keeps the layer underneath MCTS as a bounded positional leaf adjustment,
+     not a separate hidden-board enumerator.
+   - Metaposition weights are configurable through `DARKBOARD_METAPOSITION_*`
+     environment overrides.
+
+7. Benchmarks
    - Random bot matchups.
    - Simple-heuristics bot matchups.
    - Fixed opening-position tactical tests.
    - Time-budget sweeps at 1s, 2s, 4s, and 8s per move.
 
-7. Priors and learning
+8. Priors and learning
    - Start with hand-built priors.
    - Generate priors from the platform's own completed Wild 16 games.
    - Keep per-opponent priors out of the first version unless privacy and data

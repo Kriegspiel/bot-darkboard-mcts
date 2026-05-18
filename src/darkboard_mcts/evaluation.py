@@ -9,6 +9,8 @@ import re
 import chess
 
 from darkboard_mcts.belief import BeliefState
+from darkboard_mcts.metaposition import MetapositionWeights
+from darkboard_mcts.metaposition import evaluate_metaposition
 from darkboard_mcts.outcome_model import GENERIC_OPPONENT_PIECE_VALUE
 from darkboard_mcts.outcome_model import OutcomeModelWeights
 from darkboard_mcts.outcome_model import PIECE_VALUES
@@ -43,6 +45,15 @@ class ActionScore:
     immediate_loss_penalty: float = 0.0
     promotion_race_bonus: float = 0.0
     informative_probe_penalty: float = 0.0
+    metaposition_adjustment: float = 0.0
+    material_balance: float = 0.0
+    pawn_advancement: float = 0.0
+    promotion_pressure: float = 0.0
+    open_file_value: float = 0.0
+    friendly_open_file_value: float = 0.0
+    controlled_squares: float = 0.0
+    king_edge_pressure: float = 0.0
+    checkmating_pressure: float = 0.0
 
 
 def ranked_action_scores(belief: BeliefState) -> tuple[ActionScore, ...]:
@@ -83,6 +94,14 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
         latest_capture_square=latest_capture_square,
         weights=QuiescenceWeights.from_env(),
     )
+    metaposition = evaluate_metaposition(
+        belief,
+        board=board,
+        move=move,
+        piece=piece,
+        outcome=outcome,
+        weights=MetapositionWeights.from_env(),
+    )
     piece_value = PIECE_VALUES.get(piece.piece_type, GENERIC_OPPONENT_PIECE_VALUE)
     development_factor = weights.legal_development_floor + (
         (1.0 - weights.legal_development_floor) * outcome.legal_probability
@@ -111,6 +130,7 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
         - checking_piece_vulnerability
         - legality_penalty
         + quiescence.adjustment
+        + metaposition.adjustment
     )
     action_score = ActionScore(
         uci=uci,
@@ -133,6 +153,15 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
         immediate_loss_penalty=quiescence.immediate_loss_penalty,
         promotion_race_bonus=quiescence.promotion_race_bonus,
         informative_probe_penalty=quiescence.informative_probe_penalty,
+        metaposition_adjustment=metaposition.adjustment,
+        material_balance=metaposition.material_balance,
+        pawn_advancement=metaposition.pawn_advancement,
+        promotion_pressure=metaposition.promotion_pressure,
+        open_file_value=metaposition.open_file_value,
+        friendly_open_file_value=metaposition.friendly_open_file_value,
+        controlled_squares=metaposition.controlled_squares,
+        king_edge_pressure=metaposition.king_edge_pressure,
+        checkmating_pressure=metaposition.checkmating_pressure,
     )
     if logger.isEnabledFor(logging.DEBUG):
         logger.debug("action_score %s", action_score)

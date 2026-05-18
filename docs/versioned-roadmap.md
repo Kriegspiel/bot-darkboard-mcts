@@ -132,21 +132,26 @@ Paper coverage:
 
 ### `0.8.0` - metaposition-inspired abstraction layer
 
-Cover the 2007 Darkboard metaposition line explicitly.
+Status: shipped.
 
-- Represent coarse metapositions as matrix/state abstractions rather than
+Implemented the first public-safe metaposition abstraction layer.
+
+- Represents coarse metapositions as matrix/state abstractions rather than
   enumerated hidden boards.
-- Add abstraction helpers for possible king, pawn, and piece occupancy.
-- Add evaluation terms inspired by the early Darkboard papers:
+- Adds abstraction helpers for possible king, pawn, piece, and aggregate
+  occupancy.
+- Adds evaluation terms inspired by the early Darkboard papers:
   - material balance
   - pawn advancement
   - multiple queens and promotion pressure
   - open files
-  - friendly pawns on open files
+  - friendly passed-pawn pressure on open files
   - controlled squares
   - king-edge and checkmating pressure
-- Keep this layer underneath the MCTS policy unless benchmarks justify a
-  separate minimax/metaposition player.
+- Keeps this layer underneath the MCTS policy as a bounded positional leaf
+  adjustment.
+- Exposes metaposition weights as `DARKBOARD_METAPOSITION_*` environment
+  overrides.
 
 Paper coverage:
 
