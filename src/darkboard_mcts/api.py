@@ -26,6 +26,17 @@ DEFAULT_TIMEOUT_SECONDS = 20
 BOT_JOIN_COOLDOWN_SECONDS = 60
 FAILED_MOVE_RETRY_DELAY_SECONDS = 1
 SUPPORTED_RULE_VARIANTS = (WILD16_RULESET,)
+BOTPLAY_CONFIG_MIGRATION = "darkboard_botplay_config_20260518"
+BOTPLAY_CONFIG_DEFAULTS = {
+    "KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME": "true",
+    "BOT_GAME_PICK_PROBABILITY": "0.5",
+    "KRIEGSPIEL_MAX_ACTIVE_GAMES": "1",
+}
+BOTPLAY_CONFIG_LEGACY_VALUES = {
+    "KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME": {"0", "false", "no", "off"},
+    "BOT_GAME_PICK_PROBABILITY": {"0", "0.0"},
+    "KRIEGSPIEL_MAX_ACTIVE_GAMES": {"1"},
+}
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 
 logging.basicConfig(level=getattr(logging, LOG_LEVEL, logging.INFO), format="%(levelname)s %(message)s")
@@ -89,7 +100,7 @@ def max_active_games() -> int:
 
 
 def bot_game_pick_probability() -> float:
-    return float_env("BOT_GAME_PICK_PROBABILITY", 0.0, minimum=0.0, maximum=1.0)
+    return float_env("BOT_GAME_PICK_PROBABILITY", 0.5, minimum=0.0, maximum=1.0)
 
 
 def load_state() -> dict[str, Any]:
@@ -117,6 +128,82 @@ def maybe_restore_token() -> None:
     token = load_state().get("token")
     if isinstance(token, str) and token:
         os.environ["KRIEGSPIEL_BOT_TOKEN"] = token
+
+
+def _env_value_for_compare(value: str) -> str:
+    normalized = value.strip()
+    if (normalized.startswith('"') and normalized.endswith('"')) or (
+        normalized.startswith("'") and normalized.endswith("'")
+    ):
+        normalized = normalized[1:-1]
+    return normalized.strip().lower()
+
+
+def _split_env_assignment(line: str) -> tuple[str, str] | None:
+    stripped = line.strip()
+    if not stripped or stripped.startswith("#") or "=" not in stripped:
+        return None
+    if stripped.startswith("export "):
+        stripped = stripped[len("export ") :].strip()
+    key, value = stripped.split("=", 1)
+    key = key.strip()
+    if not key:
+        return None
+    return key, value
+
+
+def apply_botplay_config_migration(env_path: str | Path = ENV_PATH) -> None:
+    """Move launch-era deployments onto the bot-vs-bot policy once."""
+
+    state = load_state()
+    migrations = state.get("config_migrations")
+    if not isinstance(migrations, dict):
+        migrations = {}
+    if migrations.get(BOTPLAY_CONFIG_MIGRATION):
+        return
+
+    path = Path(env_path)
+    if not path.exists():
+        return
+
+    lines = path.read_text().splitlines()
+    updated_lines: list[str] = []
+    seen: set[str] = set()
+    changed = False
+
+    for line in lines:
+        assignment = _split_env_assignment(line)
+        if assignment is None:
+            updated_lines.append(line)
+            continue
+        key, value = assignment
+        if key not in BOTPLAY_CONFIG_DEFAULTS:
+            updated_lines.append(line)
+            continue
+
+        seen.add(key)
+        desired = BOTPLAY_CONFIG_DEFAULTS[key]
+        legacy_values = BOTPLAY_CONFIG_LEGACY_VALUES.get(key, set())
+        if _env_value_for_compare(value) in legacy_values:
+            updated_lines.append(f"{key}={desired}")
+            os.environ[key] = desired
+            changed = True
+        else:
+            updated_lines.append(line)
+
+    for key, desired in BOTPLAY_CONFIG_DEFAULTS.items():
+        if key not in seen:
+            updated_lines.append(f"{key}={desired}")
+            os.environ[key] = desired
+            changed = True
+
+    if changed:
+        path.write_text("\n".join(updated_lines) + "\n")
+        logger.info("updated bot-vs-bot runtime config in %s", path)
+
+    migrations[BOTPLAY_CONFIG_MIGRATION] = True
+    state["config_migrations"] = migrations
+    save_state(state)
 
 
 def supported_rule_variants() -> list[str]:
@@ -188,7 +275,7 @@ def under_active_game_limit(games: list[dict[str, Any]]) -> bool:
 
 
 def auto_create_enabled() -> bool:
-    return bool_env("KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME", False)
+    return bool_env("KRIEGSPIEL_AUTO_CREATE_LOBBY_GAME", True)
 
 
 def create_payload() -> dict[str, str]:
@@ -376,6 +463,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     load_env_file()
+    apply_botplay_config_migration()
     maybe_restore_token()
     args = parse_args(argv or sys.argv[1:])
 
