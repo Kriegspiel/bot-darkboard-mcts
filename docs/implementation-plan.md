@@ -5,6 +5,9 @@ as the referee. It should not replace `ks-game`; it should consume the legal
 actions, submit attempts, and update its own uncertainty model from the public
 referee announcements it receives.
 
+For the release-by-release roadmap toward full public-paper coverage, see
+[`versioned-roadmap.md`](./versioned-roadmap.md).
+
 ## Rule Set
 
 Start with `wild16`, the Internet Chess Club / ICGA Computer Olympiad rule line
