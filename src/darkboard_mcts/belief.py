@@ -7,6 +7,8 @@ from typing import Any
 
 import chess
 
+from darkboard_mcts.priors import opponent_priors
+
 
 WILD16_RULESET = "wild16"
 
@@ -64,9 +66,11 @@ class BeliefState:
         material_summary = state.get("material_summary") if isinstance(state.get("material_summary"), dict) else {}
         referee_log = state.get("referee_log") if isinstance(state.get("referee_log"), list) else []
         referee_turns = state.get("referee_turns") if isinstance(state.get("referee_turns"), list) else []
+        visible_fen = str(state.get("your_fen") or state.get("visible_fen") or "")
+        priors = opponent_priors(visible_fen=visible_fen, color=color, material_summary=material_summary)
         return cls(
             color=color,
-            visible_fen=str(state.get("your_fen") or state.get("visible_fen") or ""),
+            visible_fen=visible_fen,
             legal_actions=legal_actions,
             ruleset=str(ruleset or state.get("rule_variant") or WILD16_RULESET),
             ply=int(state.get("ply") or state.get("move_number") or 1),
@@ -77,4 +81,7 @@ class BeliefState:
             material_summary=material_summary,
             referee_log=tuple(item for item in referee_log if isinstance(item, dict)),
             referee_turns=tuple(item for item in referee_turns if isinstance(item, dict)),
+            opponent_king=priors.king,
+            opponent_pawns=priors.pawns,
+            opponent_pieces=priors.pieces,
         )

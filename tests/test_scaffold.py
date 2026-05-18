@@ -25,9 +25,14 @@ def test_belief_state_from_api_state_accepts_wild16_payload() -> None:
     assert belief.legal_actions == ("e2e4", "d2d4")
     assert belief.possible_actions == ("move",)
     assert belief.referee_log == ({"announcement": "Move complete"},)
+    assert sum(belief.opponent_king) == pytest.approx(1.0)
+    assert sum(belief.opponent_pawns) == pytest.approx(8.0)
+    assert sum(belief.opponent_pieces) == pytest.approx(7.0)
+    assert belief.opponent_king[chess.A1] == 0
+    assert belief.opponent_pawns[chess.E2] == 0
 
 
-def test_choose_action_is_deterministic_placeholder() -> None:
+def test_choose_action_is_deterministic_when_visible_board_is_missing() -> None:
     belief = BeliefState(
         color=chess.BLACK,
         visible_fen="",
