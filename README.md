@@ -32,13 +32,14 @@ This repository now contains:
 - a package skeleton for belief-state and MCTS work
 - a minimal `BeliefState` value object
 - a minimal API runtime for a `wild16` bot account
-- a placeholder chooser that returns deterministic move attempts
+- hand-built opponent king/pawn/piece prior matrices from public material data
+- a deterministic one-ply evaluator for move attempts
 - an implementation plan grounded in the public Darkboard papers
 - tests for the scaffold and runtime loop
 
 The championship-strength work is intentionally still ahead: probability
-matrices, referee-message simulation, UCT tree search, quiescence handling,
-game-log priors, and benchmarking.
+matrix updates from referee evidence, referee-message simulation, UCT tree
+search, quiescence handling, game-log priors, and benchmarking.
 
 The runtime is intentionally conservative:
 

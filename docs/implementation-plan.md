@@ -26,15 +26,18 @@ used by the public Darkboard papers. In platform terms this means:
    - Still needs richer belief reconstruction from previous snapshots.
 
 2. Probability matrices
-   - Maintain opponent king, pawn, and generic-piece 8x8 matrices.
-   - Normalize totals against public material counts.
-   - Update matrices after empty-square evidence, captures, pawn-try counts, and
-     opponent turns.
+   - Initial hand-built opponent king, pawn, and generic-piece 8x8 priors are
+     implemented.
+   - The priors normalize totals against public material counts.
+   - Still needs persistent updates after empty-square evidence, captures,
+     pawn-try counts, and opponent turns.
 
 3. Referee-message model
+   - Initial move scoring uses the matrices for likely captures, check pressure,
+     pawn progress, recapture targets, and simple safety penalties.
    - Estimate move legality from path occupancy and pin/control probabilities.
-   - Estimate capture probabilities from destination-square occupancy.
-   - Estimate check probabilities from king-density over attacked squares.
+   - Refine capture probabilities from destination-square occupancy.
+   - Refine check probabilities from king-density over attacked squares.
    - Estimate opponent retaliation and capture risk.
 
 4. MCTS Approach C
@@ -48,7 +51,7 @@ Current deterministic baseline:
 - registers as a `wild16` bot
 - polls `/game/mine/active`
 - skips non-`wild16` games defensively
-- ranks currently exposed move attempts deterministically
+- ranks currently exposed move attempts with a deterministic one-ply evaluator
 - retries attempts until one completes the turn or the ranked list is exhausted
 - defaults to listed, one active game, automatic Wild 16 lobby creation, and a
   10% chance to join compatible bot-created Wild 16 lobbies when sampled
