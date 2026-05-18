@@ -39,13 +39,14 @@ This repository now contains:
 - short tactical quiescence estimates for volatile captures, recaptures, and
   promotion races
 - a metaposition-inspired matrix abstraction for public-safe positional scoring
+- an optional reviewed aggregate `priors.json` loader and offline generator
 - a deterministic one-ply evaluator for move attempts
 - an implementation plan grounded in the public Darkboard papers
 - a versioned roadmap for covering the public Darkboard paper ideas
 - tests for the scaffold and runtime loop
 
-The championship-strength work is intentionally still ahead: game-log priors,
-tuning, and benchmarking.
+The championship-strength work is intentionally still ahead: reviewed game-data
+collection, tuning, and benchmarking.
 
 The runtime is intentionally conservative:
 
@@ -62,6 +63,10 @@ The runtime is intentionally conservative:
   `DARKBOARD_QUIESCENCE_*` environment overrides
 - applies metaposition-inspired positional adjustments under
   `DARKBOARD_METAPOSITION_*` environment overrides
+- can load reviewed aggregate priors from `priors.json` or
+  `DARKBOARD_PRIORS_PATH`
+- does not learn continuously in production and does not model individual
+  opponents
 
 MCTS runtime controls:
 
@@ -104,6 +109,16 @@ Metaposition weights currently include:
 - `DARKBOARD_METAPOSITION_KING_EDGE_SCALE`
 - `DARKBOARD_METAPOSITION_CHECKMATING_PRESSURE_SCALE`
 - `DARKBOARD_METAPOSITION_MAX_ADJUSTMENT`
+
+Aggregate prior controls:
+
+- `DARKBOARD_PRIORS_PATH` optionally points at a reviewed aggregate priors file
+  instead of the default repository-root `priors.json`
+- `darkboard-generate-priors <archive.json|jsonl> <priors.json>` generates a
+  candidate file from prepared completed Wild 16 game archives
+
+See [`docs/priors-format.md`](docs/priors-format.md) for the reviewed file
+format and data policy.
 
 ## Development
 

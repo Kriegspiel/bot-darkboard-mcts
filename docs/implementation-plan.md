@@ -71,6 +71,7 @@ Current deterministic baseline:
 - ranks attempts with bounded public-outcome MCTS
 - adjusts volatile leaves with public-state quiescence estimates
 - adds metaposition-inspired public-safe positional evaluation underneath MCTS
+- blends in reviewed aggregate priors from an optional `priors.json`
 - retries attempts until one completes the turn or the ranked list is exhausted
 - carries forward per-game opponent matrices from `.bot-state.json`
 - applies referee evidence after each move attempt and on the next observed turn
@@ -110,9 +111,18 @@ Current deterministic baseline:
 
 8. Priors and learning
    - Start with hand-built priors.
-   - Generate priors from the platform's own completed Wild 16 games.
+   - Done for the semi-manual aggregate workflow.
+   - Load a reviewed `priors.json` when present, with `DARKBOARD_PRIORS_PATH`
+     as an optional override.
+   - Generate candidate priors from prepared completed Wild 16 archive exports
+     with `darkboard-generate-priors`.
+   - Learn aggregate opening piece-density priors, pawn movement tendencies,
+     recapture and retaliation rates, and capture-chain lengths.
+   - Keep hand-built priors as the fallback whenever the file is missing,
+     malformed, incompatible, or not Wild 16.
    - Keep per-opponent priors out of the first version unless privacy and data
      retention rules are explicitly designed.
+   - Do not let the live bot continuously learn from production games.
 
 ## Non-goals
 
