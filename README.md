@@ -36,13 +36,15 @@ This repository now contains:
 - persistent per-game belief restoration and referee-evidence updates
 - a public referee-message probability model for one-move outcomes
 - a bounded public-outcome MCTS core over move, referee, and opponent branches
+- short tactical quiescence estimates for volatile captures, recaptures, and
+  promotion races
 - a deterministic one-ply evaluator for move attempts
 - an implementation plan grounded in the public Darkboard papers
 - a versioned roadmap for covering the public Darkboard paper ideas
 - tests for the scaffold and runtime loop
 
-The championship-strength work is intentionally still ahead: deeper tactical
-continuation, game-log priors, tuning, and benchmarking.
+The championship-strength work is intentionally still ahead: metaposition
+abstractions, game-log priors, tuning, and benchmarking.
 
 The runtime is intentionally conservative:
 
@@ -55,6 +57,8 @@ The runtime is intentionally conservative:
 - stores only its own per-game belief matrices and referee-log cursor in `.bot-state.json`
 - exposes one-move model weights through `DARKBOARD_MODEL_*` environment overrides
 - searches public referee outcomes with bounded MCTS and falls back to the deterministic evaluator on malformed state
+- applies deterministic public-state quiescence adjustments under
+  `DARKBOARD_QUIESCENCE_*` environment overrides
 
 MCTS runtime controls:
 
@@ -75,6 +79,16 @@ Outcome model weights currently include:
 - `DARKBOARD_MODEL_CHECKING_PIECE_VULNERABILITY_SCALE`
 - `DARKBOARD_MODEL_DEVELOPMENT_SCALE`
 - `DARKBOARD_MODEL_LEGAL_DEVELOPMENT_FLOOR`
+
+Quiescence weights currently include:
+
+- `DARKBOARD_QUIESCENCE_CAPTURE_CHAIN_SCALE`
+- `DARKBOARD_QUIESCENCE_RECAPTURE_CHAIN_SCALE`
+- `DARKBOARD_QUIESCENCE_IMMEDIATE_LOSS_SCALE`
+- `DARKBOARD_QUIESCENCE_CHECKING_PIECE_VULNERABILITY_SCALE`
+- `DARKBOARD_QUIESCENCE_PROMOTION_RACE_SCALE`
+- `DARKBOARD_QUIESCENCE_INFORMATIVE_PROBE_PENALTY_SCALE`
+- `DARKBOARD_QUIESCENCE_MAX_ADJUSTMENT`
 
 ## Development
 

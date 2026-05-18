@@ -111,14 +111,19 @@ Paper coverage:
 
 ### `0.7.0` - quiescence and tactical continuation
 
-Extend evaluation through volatile tactical sequences.
+Status: shipped.
 
-- Continue capture and recapture chains when probability is high.
+Implemented the first deterministic public-state quiescence layer.
+
+- Estimate likely capture and recapture chains from the public outcome model.
+- Prefer recaptures when the public referee log reveals the latest capture
+  square.
 - Penalize moves that likely lose high-value pieces immediately.
-- Evaluate checking-piece vulnerability.
-- Improve promotion-race handling.
-- Avoid informative probes whose expected material loss dominates the value of
-  the information gained.
+- Evaluate checking-piece vulnerability inside the tactical continuation layer.
+- Improve promotion-race handling for near-promoting pawns and promotions.
+- Avoid informative probes whose expected material loss dominates the modeled
+  tactical gain.
+- Expose quiescence weights as `DARKBOARD_QUIESCENCE_*` environment overrides.
 
 Paper coverage:
 
