@@ -20,6 +20,11 @@ The archive input follows the same convention as the priors generator:
 
 Only completed `wild16` games involving the benchmark bot are included.
 
+For local bot-only baselines, `darkboard-run-local-benchmark` can drive the
+`ks-game` Wild 16 engine in-process and write a compatible JSONL archive export.
+Use it for reproducible offline baselines, not as a substitute for production
+platform-game evidence.
+
 ## Manifest
 
 The manifest records the intended benchmark matrix. Missing required matchups
@@ -50,7 +55,17 @@ are reported as coverage gaps.
       "provider_available": false,
       "target_games": 20
     }
-  ]
+  ],
+  "collection": {
+    "method": "local_ks_game_wild16",
+    "runner": "darkboard-run-local-benchmark",
+    "engine_commit": "enginecommit",
+    "seed": 20260519,
+    "mcts_max_iterations": 384,
+    "selection_rule": "visits",
+    "max_plies": 700,
+    "raw_archives_committed": false
+  }
 }
 ```
 
@@ -64,6 +79,8 @@ Fields:
 - `required_matchups[].target_games`: required completed-game count
 - `required_matchups[].provider_available`: set `false` to record a model-bot
   provider outage as intentionally skipped
+- `collection`: optional operator metadata copied into reports so readers can
+  tell how the benchmark data was produced
 
 ## Metrics
 
@@ -78,6 +95,7 @@ The report includes:
 - average turns
 - timeout rate
 - representative failure modes from non-win games and timeout games
+- collection method and local benchmark settings when present in the manifest
 
 Attempt metrics prefer completed-game scoresheets in `engine_state`; when those
 are absent, the tool falls back to public `moves` or `attempts` arrays. That
@@ -99,3 +117,14 @@ are reported as `skipped_unavailable` rather than `missing`.
 - Do not emit per-opponent models.
 - Do not deploy raw archive exports.
 - Do not use the live bot runtime for continuous benchmark learning.
+
+## Committed Baselines
+
+The first reviewed local baseline lives in
+[`benchmarks/base-1.0.0`](../benchmarks/base-1.0.0):
+
+- 100 games versus `randobot`
+- 100 games versus `simpleheuristics`
+- 100 games versus `darkboardmcts-self`
+- production MCTS defaults: 1 second, 384 max iterations, `visits` selection
+- 700-ply local adjudication cap, reported as `adjudicated_max_plies`

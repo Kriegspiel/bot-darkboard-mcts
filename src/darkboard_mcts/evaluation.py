@@ -9,6 +9,8 @@ import re
 import chess
 
 from darkboard_mcts.belief import BeliefState
+from darkboard_mcts.endgame import EndgameWeights
+from darkboard_mcts.endgame import evaluate_endgame_urgency
 from darkboard_mcts.metaposition import MetapositionWeights
 from darkboard_mcts.metaposition import evaluate_metaposition
 from darkboard_mcts.outcome_model import GENERIC_OPPONENT_PIECE_VALUE
@@ -54,6 +56,7 @@ class ActionScore:
     controlled_squares: float = 0.0
     king_edge_pressure: float = 0.0
     checkmating_pressure: float = 0.0
+    endgame_urgency: float = 0.0
 
 
 def ranked_action_scores(belief: BeliefState) -> tuple[ActionScore, ...]:
@@ -102,6 +105,13 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
         outcome=outcome,
         weights=MetapositionWeights.from_env(),
     )
+    endgame_urgency = evaluate_endgame_urgency(
+        belief,
+        move=move,
+        piece=piece,
+        outcome=outcome,
+        weights=EndgameWeights.from_env(),
+    )
     piece_value = PIECE_VALUES.get(piece.piece_type, GENERIC_OPPONENT_PIECE_VALUE)
     development_factor = weights.legal_development_floor + (
         (1.0 - weights.legal_development_floor) * outcome.legal_probability
@@ -131,6 +141,7 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
         - legality_penalty
         + quiescence.adjustment
         + metaposition.adjustment
+        + endgame_urgency
     )
     action_score = ActionScore(
         uci=uci,
@@ -162,6 +173,7 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
         controlled_squares=metaposition.controlled_squares,
         king_edge_pressure=metaposition.king_edge_pressure,
         checkmating_pressure=metaposition.checkmating_pressure,
+        endgame_urgency=endgame_urgency,
     )
     if logger.isEnabledFor(logging.DEBUG):
         logger.debug("action_score %s", action_score)

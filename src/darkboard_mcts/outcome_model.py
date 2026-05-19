@@ -29,7 +29,7 @@ class OutcomeModelWeights:
     capture_value_scale: float = 1.0
     check_pressure: float = 180.0
     recapture_bonus: float = 260.0
-    illegal_attempt_penalty: float = 70.0
+    illegal_attempt_penalty: float = 90.0
     safety_penalty_scale: float = 0.28
     checking_piece_vulnerability_scale: float = 0.16
     development_scale: float = 1.0

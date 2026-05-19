@@ -1,0 +1,5262 @@
+{
+  "benchmark_name": "Darkboard MCTS 1.0 Wild 16 local baseline",
+  "bot": {
+    "commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+    "username": "darkboardmcts"
+  },
+  "collection": {
+    "color_assignment": "alternating; benchmark bot is white on even-indexed games per matchup",
+    "engine_commit": "79be70e30b977e2f45e26840557920eaad75f7d8",
+    "max_plies": 700,
+    "mcts_max_iterations": 384,
+    "method": "local_ks_game_wild16",
+    "raw_archives_committed": false,
+    "runner": "darkboard-run-local-benchmark",
+    "runner_version": 1,
+    "seed": 20260519,
+    "selection_rule": "visits"
+  },
+  "coverage": {
+    "complete": true,
+    "requirements": [
+      {
+        "label": "",
+        "matched_games": 100,
+        "opponent": "randobot",
+        "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+        "provider_available": true,
+        "status": "complete",
+        "target_games": 100,
+        "time_budget_seconds": 1.0
+      },
+      {
+        "label": "",
+        "matched_games": 100,
+        "opponent": "simpleheuristics",
+        "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+        "provider_available": true,
+        "status": "complete",
+        "target_games": 100,
+        "time_budget_seconds": 1.0
+      },
+      {
+        "label": "",
+        "matched_games": 100,
+        "opponent": "darkboardmcts-self",
+        "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+        "provider_available": true,
+        "status": "complete",
+        "target_games": 100,
+        "time_budget_seconds": 1.0
+      }
+    ]
+  },
+  "data_policy": {
+    "aggregate_report_only": true,
+    "completed_wild16_only": true,
+    "hidden_board_data_required": false,
+    "strength_claim_requires_complete_coverage": true
+  },
+  "failure_modes": [
+    {
+      "count": 126,
+      "reason": "stalemate"
+    },
+    {
+      "count": 80,
+      "reason": "adjudicated_max_plies"
+    },
+    {
+      "count": 51,
+      "reason": "insufficient_material"
+    },
+    {
+      "count": 14,
+      "reason": "checkmate"
+    }
+  ],
+  "games": [
+    {
+      "attempts": {
+        "attempts": 172,
+        "completed_moves": 126,
+        "illegal_attempts": 46
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0001",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 251
+    },
+    {
+      "attempts": {
+        "attempts": 215,
+        "completed_moves": 172,
+        "illegal_attempts": 43
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0002",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 345
+    },
+    {
+      "attempts": {
+        "attempts": 99,
+        "completed_moves": 87,
+        "illegal_attempts": 12
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0003",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 173
+    },
+    {
+      "attempts": {
+        "attempts": 101,
+        "completed_moves": 72,
+        "illegal_attempts": 29
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0004",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 144
+    },
+    {
+      "attempts": {
+        "attempts": 87,
+        "completed_moves": 58,
+        "illegal_attempts": 29
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0005",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 116
+    },
+    {
+      "attempts": {
+        "attempts": 160,
+        "completed_moves": 104,
+        "illegal_attempts": 56
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0006",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 208
+    },
+    {
+      "attempts": {
+        "attempts": 259,
+        "completed_moves": 184,
+        "illegal_attempts": 75
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0007",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 368
+    },
+    {
+      "attempts": {
+        "attempts": 266,
+        "completed_moves": 214,
+        "illegal_attempts": 52
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0008",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 429
+    },
+    {
+      "attempts": {
+        "attempts": 119,
+        "completed_moves": 99,
+        "illegal_attempts": 20
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0009",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 197
+    },
+    {
+      "attempts": {
+        "attempts": 95,
+        "completed_moves": 77,
+        "illegal_attempts": 18
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0010",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 154
+    },
+    {
+      "attempts": {
+        "attempts": 203,
+        "completed_moves": 161,
+        "illegal_attempts": 42
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0011",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 321
+    },
+    {
+      "attempts": {
+        "attempts": 204,
+        "completed_moves": 155,
+        "illegal_attempts": 49
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0012",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 310
+    },
+    {
+      "attempts": {
+        "attempts": 151,
+        "completed_moves": 109,
+        "illegal_attempts": 42
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0013",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 217
+    },
+    {
+      "attempts": {
+        "attempts": 102,
+        "completed_moves": 79,
+        "illegal_attempts": 23
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0014",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 158
+    },
+    {
+      "attempts": {
+        "attempts": 163,
+        "completed_moves": 113,
+        "illegal_attempts": 50
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0015",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 225
+    },
+    {
+      "attempts": {
+        "attempts": 151,
+        "completed_moves": 94,
+        "illegal_attempts": 57
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0016",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 188
+    },
+    {
+      "attempts": {
+        "attempts": 169,
+        "completed_moves": 152,
+        "illegal_attempts": 17
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0017",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 304
+    },
+    {
+      "attempts": {
+        "attempts": 197,
+        "completed_moves": 133,
+        "illegal_attempts": 64
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0018",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 266
+    },
+    {
+      "attempts": {
+        "attempts": 287,
+        "completed_moves": 197,
+        "illegal_attempts": 90
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0019",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 393
+    },
+    {
+      "attempts": {
+        "attempts": 270,
+        "completed_moves": 200,
+        "illegal_attempts": 70
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0020",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 401
+    },
+    {
+      "attempts": {
+        "attempts": 145,
+        "completed_moves": 105,
+        "illegal_attempts": 40
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0021",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 209
+    },
+    {
+      "attempts": {
+        "attempts": 181,
+        "completed_moves": 156,
+        "illegal_attempts": 25
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0022",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 313
+    },
+    {
+      "attempts": {
+        "attempts": 278,
+        "completed_moves": 228,
+        "illegal_attempts": 50
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0023",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 456
+    },
+    {
+      "attempts": {
+        "attempts": 30,
+        "completed_moves": 26,
+        "illegal_attempts": 4
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0024",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 52
+    },
+    {
+      "attempts": {
+        "attempts": 417,
+        "completed_moves": 350,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0025",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 52,
+        "completed_moves": 40,
+        "illegal_attempts": 12
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0026",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 80
+    },
+    {
+      "attempts": {
+        "attempts": 138,
+        "completed_moves": 109,
+        "illegal_attempts": 29
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0027",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 218
+    },
+    {
+      "attempts": {
+        "attempts": 130,
+        "completed_moves": 94,
+        "illegal_attempts": 36
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0028",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 188
+    },
+    {
+      "attempts": {
+        "attempts": 205,
+        "completed_moves": 138,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0029",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 276
+    },
+    {
+      "attempts": {
+        "attempts": 235,
+        "completed_moves": 213,
+        "illegal_attempts": 22
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0030",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 427
+    },
+    {
+      "attempts": {
+        "attempts": 105,
+        "completed_moves": 74,
+        "illegal_attempts": 31
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0031",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 147
+    },
+    {
+      "attempts": {
+        "attempts": 169,
+        "completed_moves": 141,
+        "illegal_attempts": 28
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0032",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 283
+    },
+    {
+      "attempts": {
+        "attempts": 649,
+        "completed_moves": 350,
+        "illegal_attempts": 299
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0033",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 96,
+        "completed_moves": 79,
+        "illegal_attempts": 17
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0034",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 158
+    },
+    {
+      "attempts": {
+        "attempts": 244,
+        "completed_moves": 156,
+        "illegal_attempts": 88
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0035",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 311
+    },
+    {
+      "attempts": {
+        "attempts": 283,
+        "completed_moves": 208,
+        "illegal_attempts": 75
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0036",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 416
+    },
+    {
+      "attempts": {
+        "attempts": 3,
+        "completed_moves": 3,
+        "illegal_attempts": 0
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0037",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 6
+    },
+    {
+      "attempts": {
+        "attempts": 167,
+        "completed_moves": 137,
+        "illegal_attempts": 30
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0038",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 275
+    },
+    {
+      "attempts": {
+        "attempts": 152,
+        "completed_moves": 106,
+        "illegal_attempts": 46
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0039",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 211
+    },
+    {
+      "attempts": {
+        "attempts": 388,
+        "completed_moves": 350,
+        "illegal_attempts": 38
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0040",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 301,
+        "completed_moves": 198,
+        "illegal_attempts": 103
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0041",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 395
+    },
+    {
+      "attempts": {
+        "attempts": 328,
+        "completed_moves": 215,
+        "illegal_attempts": 113
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0042",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 431
+    },
+    {
+      "attempts": {
+        "attempts": 296,
+        "completed_moves": 202,
+        "illegal_attempts": 94
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0043",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 403
+    },
+    {
+      "attempts": {
+        "attempts": 386,
+        "completed_moves": 350,
+        "illegal_attempts": 36
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0044",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 437,
+        "completed_moves": 274,
+        "illegal_attempts": 163
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0045",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 548
+    },
+    {
+      "attempts": {
+        "attempts": 212,
+        "completed_moves": 171,
+        "illegal_attempts": 41
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0046",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 342
+    },
+    {
+      "attempts": {
+        "attempts": 81,
+        "completed_moves": 54,
+        "illegal_attempts": 27
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0047",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 107
+    },
+    {
+      "attempts": {
+        "attempts": 409,
+        "completed_moves": 350,
+        "illegal_attempts": 59
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0048",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 226,
+        "completed_moves": 167,
+        "illegal_attempts": 59
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0049",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 334
+    },
+    {
+      "attempts": {
+        "attempts": 193,
+        "completed_moves": 135,
+        "illegal_attempts": 58
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0050",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 270
+    },
+    {
+      "attempts": {
+        "attempts": 386,
+        "completed_moves": 284,
+        "illegal_attempts": 102
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0051",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 567
+    },
+    {
+      "attempts": {
+        "attempts": 197,
+        "completed_moves": 135,
+        "illegal_attempts": 62
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0052",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 271
+    },
+    {
+      "attempts": {
+        "attempts": 133,
+        "completed_moves": 86,
+        "illegal_attempts": 47
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0053",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 171
+    },
+    {
+      "attempts": {
+        "attempts": 12,
+        "completed_moves": 9,
+        "illegal_attempts": 3
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0054",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 18
+    },
+    {
+      "attempts": {
+        "attempts": 123,
+        "completed_moves": 87,
+        "illegal_attempts": 36
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0055",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 173
+    },
+    {
+      "attempts": {
+        "attempts": 394,
+        "completed_moves": 344,
+        "illegal_attempts": 50
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0056",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 688
+    },
+    {
+      "attempts": {
+        "attempts": 154,
+        "completed_moves": 104,
+        "illegal_attempts": 50
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0057",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 208
+    },
+    {
+      "attempts": {
+        "attempts": 77,
+        "completed_moves": 58,
+        "illegal_attempts": 19
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0058",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 116
+    },
+    {
+      "attempts": {
+        "attempts": 226,
+        "completed_moves": 209,
+        "illegal_attempts": 17
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0059",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 418
+    },
+    {
+      "attempts": {
+        "attempts": 152,
+        "completed_moves": 90,
+        "illegal_attempts": 62
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0060",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 180
+    },
+    {
+      "attempts": {
+        "attempts": 309,
+        "completed_moves": 214,
+        "illegal_attempts": 95
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0061",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 427
+    },
+    {
+      "attempts": {
+        "attempts": 3,
+        "completed_moves": 3,
+        "illegal_attempts": 0
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0062",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 7
+    },
+    {
+      "attempts": {
+        "attempts": 233,
+        "completed_moves": 152,
+        "illegal_attempts": 81
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0063",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 304
+    },
+    {
+      "attempts": {
+        "attempts": 250,
+        "completed_moves": 191,
+        "illegal_attempts": 59
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0064",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 382
+    },
+    {
+      "attempts": {
+        "attempts": 149,
+        "completed_moves": 123,
+        "illegal_attempts": 26
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0065",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 246
+    },
+    {
+      "attempts": {
+        "attempts": 324,
+        "completed_moves": 237,
+        "illegal_attempts": 87
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0066",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 475
+    },
+    {
+      "attempts": {
+        "attempts": 5,
+        "completed_moves": 5,
+        "illegal_attempts": 0
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0067",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 10
+    },
+    {
+      "attempts": {
+        "attempts": 203,
+        "completed_moves": 132,
+        "illegal_attempts": 71
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0068",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 265
+    },
+    {
+      "attempts": {
+        "attempts": 282,
+        "completed_moves": 212,
+        "illegal_attempts": 70
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0069",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 423
+    },
+    {
+      "attempts": {
+        "attempts": 254,
+        "completed_moves": 168,
+        "illegal_attempts": 86
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0070",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 337
+    },
+    {
+      "attempts": {
+        "attempts": 325,
+        "completed_moves": 266,
+        "illegal_attempts": 59
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0071",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 531
+    },
+    {
+      "attempts": {
+        "attempts": 128,
+        "completed_moves": 94,
+        "illegal_attempts": 34
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0072",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 188
+    },
+    {
+      "attempts": {
+        "attempts": 438,
+        "completed_moves": 350,
+        "illegal_attempts": 88
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0073",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 73,
+        "completed_moves": 38,
+        "illegal_attempts": 35
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0074",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 77
+    },
+    {
+      "attempts": {
+        "attempts": 425,
+        "completed_moves": 350,
+        "illegal_attempts": 75
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0075",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 114,
+        "completed_moves": 82,
+        "illegal_attempts": 32
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0076",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 164
+    },
+    {
+      "attempts": {
+        "attempts": 120,
+        "completed_moves": 77,
+        "illegal_attempts": 43
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0077",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 153
+    },
+    {
+      "attempts": {
+        "attempts": 2,
+        "completed_moves": 2,
+        "illegal_attempts": 0
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0078",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 5
+    },
+    {
+      "attempts": {
+        "attempts": 161,
+        "completed_moves": 106,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0079",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 211
+    },
+    {
+      "attempts": {
+        "attempts": 82,
+        "completed_moves": 70,
+        "illegal_attempts": 12
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0080",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 140
+    },
+    {
+      "attempts": {
+        "attempts": 407,
+        "completed_moves": 350,
+        "illegal_attempts": 57
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0081",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 78,
+        "completed_moves": 75,
+        "illegal_attempts": 3
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0082",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 150
+    },
+    {
+      "attempts": {
+        "attempts": 6,
+        "completed_moves": 4,
+        "illegal_attempts": 2
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0083",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 8
+    },
+    {
+      "attempts": {
+        "attempts": 104,
+        "completed_moves": 87,
+        "illegal_attempts": 17
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0084",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 174
+    },
+    {
+      "attempts": {
+        "attempts": 69,
+        "completed_moves": 34,
+        "illegal_attempts": 35
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0085",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 67
+    },
+    {
+      "attempts": {
+        "attempts": 227,
+        "completed_moves": 192,
+        "illegal_attempts": 35
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0086",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 385
+    },
+    {
+      "attempts": {
+        "attempts": 111,
+        "completed_moves": 77,
+        "illegal_attempts": 34
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0087",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 153
+    },
+    {
+      "attempts": {
+        "attempts": 132,
+        "completed_moves": 120,
+        "illegal_attempts": 12
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0088",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 240
+    },
+    {
+      "attempts": {
+        "attempts": 165,
+        "completed_moves": 119,
+        "illegal_attempts": 46
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0089",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 237
+    },
+    {
+      "attempts": {
+        "attempts": 139,
+        "completed_moves": 121,
+        "illegal_attempts": 18
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0090",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 242
+    },
+    {
+      "attempts": {
+        "attempts": 190,
+        "completed_moves": 166,
+        "illegal_attempts": 24
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0091",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 332
+    },
+    {
+      "attempts": {
+        "attempts": 121,
+        "completed_moves": 72,
+        "illegal_attempts": 49
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0092",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 145
+    },
+    {
+      "attempts": {
+        "attempts": 351,
+        "completed_moves": 227,
+        "illegal_attempts": 124
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0093",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 454
+    },
+    {
+      "attempts": {
+        "attempts": 442,
+        "completed_moves": 350,
+        "illegal_attempts": 92
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0094",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 374,
+        "completed_moves": 350,
+        "illegal_attempts": 24
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0095",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 112,
+        "completed_moves": 93,
+        "illegal_attempts": 19
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0096",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 186
+    },
+    {
+      "attempts": {
+        "attempts": 134,
+        "completed_moves": 112,
+        "illegal_attempts": 22
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0097",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 223
+    },
+    {
+      "attempts": {
+        "attempts": 115,
+        "completed_moves": 105,
+        "illegal_attempts": 10
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0098",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 210
+    },
+    {
+      "attempts": {
+        "attempts": 68,
+        "completed_moves": 61,
+        "illegal_attempts": 7
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0099",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 121
+    },
+    {
+      "attempts": {
+        "attempts": 184,
+        "completed_moves": 152,
+        "illegal_attempts": 32
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBR0100",
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 305
+    },
+    {
+      "attempts": {
+        "attempts": 170,
+        "completed_moves": 127,
+        "illegal_attempts": 43
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0001",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 253
+    },
+    {
+      "attempts": {
+        "attempts": 954,
+        "completed_moves": 350,
+        "illegal_attempts": 604
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0002",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 6,
+        "completed_moves": 4,
+        "illegal_attempts": 2
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0003",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 8
+    },
+    {
+      "attempts": {
+        "attempts": 381,
+        "completed_moves": 350,
+        "illegal_attempts": 31
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0004",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 401,
+        "completed_moves": 350,
+        "illegal_attempts": 51
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0005",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 452,
+        "completed_moves": 350,
+        "illegal_attempts": 102
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0006",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 306,
+        "completed_moves": 180,
+        "illegal_attempts": 126
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0007",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 360
+    },
+    {
+      "attempts": {
+        "attempts": 387,
+        "completed_moves": 350,
+        "illegal_attempts": 37
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0008",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 105,
+        "completed_moves": 79,
+        "illegal_attempts": 26
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0009",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 158
+    },
+    {
+      "attempts": {
+        "attempts": 388,
+        "completed_moves": 350,
+        "illegal_attempts": 38
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0010",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 225,
+        "completed_moves": 136,
+        "illegal_attempts": 89
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0011",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 271
+    },
+    {
+      "attempts": {
+        "attempts": 365,
+        "completed_moves": 350,
+        "illegal_attempts": 15
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0012",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 569,
+        "completed_moves": 350,
+        "illegal_attempts": 219
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0013",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 205,
+        "completed_moves": 106,
+        "illegal_attempts": 99
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0014",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 212
+    },
+    {
+      "attempts": {
+        "attempts": 546,
+        "completed_moves": 350,
+        "illegal_attempts": 196
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0015",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 661,
+        "completed_moves": 350,
+        "illegal_attempts": 311
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0016",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 431,
+        "completed_moves": 350,
+        "illegal_attempts": 81
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0017",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 427,
+        "completed_moves": 350,
+        "illegal_attempts": 77
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0018",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 149,
+        "completed_moves": 135,
+        "illegal_attempts": 14
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0019",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 269
+    },
+    {
+      "attempts": {
+        "attempts": 493,
+        "completed_moves": 350,
+        "illegal_attempts": 143
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0020",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 125,
+        "completed_moves": 91,
+        "illegal_attempts": 34
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0021",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 182
+    },
+    {
+      "attempts": {
+        "attempts": 338,
+        "completed_moves": 175,
+        "illegal_attempts": 163
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0022",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 351
+    },
+    {
+      "attempts": {
+        "attempts": 590,
+        "completed_moves": 350,
+        "illegal_attempts": 240
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0023",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 604,
+        "completed_moves": 350,
+        "illegal_attempts": 254
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0024",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 467,
+        "completed_moves": 350,
+        "illegal_attempts": 117
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0025",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 416,
+        "completed_moves": 350,
+        "illegal_attempts": 66
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0026",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 414,
+        "completed_moves": 350,
+        "illegal_attempts": 64
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0027",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 547,
+        "completed_moves": 350,
+        "illegal_attempts": 197
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0028",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 371,
+        "completed_moves": 350,
+        "illegal_attempts": 21
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0029",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 375,
+        "completed_moves": 350,
+        "illegal_attempts": 25
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0030",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 407,
+        "completed_moves": 350,
+        "illegal_attempts": 57
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0031",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 571,
+        "completed_moves": 350,
+        "illegal_attempts": 221
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0032",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 937,
+        "completed_moves": 350,
+        "illegal_attempts": 587
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0033",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 366,
+        "completed_moves": 350,
+        "illegal_attempts": 16
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0034",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 595,
+        "completed_moves": 350,
+        "illegal_attempts": 245
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0035",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 42,
+        "completed_moves": 38,
+        "illegal_attempts": 4
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0036",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 76
+    },
+    {
+      "attempts": {
+        "attempts": 113,
+        "completed_moves": 84,
+        "illegal_attempts": 29
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0037",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 167
+    },
+    {
+      "attempts": {
+        "attempts": 84,
+        "completed_moves": 79,
+        "illegal_attempts": 5
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0038",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 158
+    },
+    {
+      "attempts": {
+        "attempts": 450,
+        "completed_moves": 350,
+        "illegal_attempts": 100
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0039",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 152,
+        "completed_moves": 87,
+        "illegal_attempts": 65
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0040",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 174
+    },
+    {
+      "attempts": {
+        "attempts": 126,
+        "completed_moves": 90,
+        "illegal_attempts": 36
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0041",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 179
+    },
+    {
+      "attempts": {
+        "attempts": 436,
+        "completed_moves": 350,
+        "illegal_attempts": 86
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0042",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 747,
+        "completed_moves": 324,
+        "illegal_attempts": 423
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0043",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 648
+    },
+    {
+      "attempts": {
+        "attempts": 106,
+        "completed_moves": 98,
+        "illegal_attempts": 8
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0044",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 197
+    },
+    {
+      "attempts": {
+        "attempts": 297,
+        "completed_moves": 127,
+        "illegal_attempts": 170
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0045",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 254
+    },
+    {
+      "attempts": {
+        "attempts": 429,
+        "completed_moves": 350,
+        "illegal_attempts": 79
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0046",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 439,
+        "completed_moves": 350,
+        "illegal_attempts": 89
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0047",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 508,
+        "completed_moves": 350,
+        "illegal_attempts": 158
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0048",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 167,
+        "completed_moves": 130,
+        "illegal_attempts": 37
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0049",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 259
+    },
+    {
+      "attempts": {
+        "attempts": 447,
+        "completed_moves": 350,
+        "illegal_attempts": 97
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0050",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 464,
+        "completed_moves": 350,
+        "illegal_attempts": 114
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0051",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 232,
+        "completed_moves": 146,
+        "illegal_attempts": 86
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0052",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 293
+    },
+    {
+      "attempts": {
+        "attempts": 769,
+        "completed_moves": 350,
+        "illegal_attempts": 419
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0053",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 409,
+        "completed_moves": 350,
+        "illegal_attempts": 59
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0054",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 377,
+        "completed_moves": 350,
+        "illegal_attempts": 27
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0055",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 417,
+        "completed_moves": 350,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0056",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 600,
+        "completed_moves": 350,
+        "illegal_attempts": 250
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0057",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 391,
+        "completed_moves": 350,
+        "illegal_attempts": 41
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0058",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 455,
+        "completed_moves": 350,
+        "illegal_attempts": 105
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0059",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 527,
+        "completed_moves": 350,
+        "illegal_attempts": 177
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0060",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 520,
+        "completed_moves": 350,
+        "illegal_attempts": 170
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0061",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 509,
+        "completed_moves": 350,
+        "illegal_attempts": 159
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0062",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 575,
+        "completed_moves": 350,
+        "illegal_attempts": 225
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0063",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 9,
+        "completed_moves": 6,
+        "illegal_attempts": 3
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0064",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 13
+    },
+    {
+      "attempts": {
+        "attempts": 414,
+        "completed_moves": 350,
+        "illegal_attempts": 64
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0065",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 405,
+        "completed_moves": 350,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0066",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 421,
+        "completed_moves": 350,
+        "illegal_attempts": 71
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0067",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 359,
+        "completed_moves": 350,
+        "illegal_attempts": 9
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0068",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 413,
+        "completed_moves": 350,
+        "illegal_attempts": 63
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0069",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 622,
+        "completed_moves": 350,
+        "illegal_attempts": 272
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0070",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 134,
+        "completed_moves": 105,
+        "illegal_attempts": 29
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0071",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 210
+    },
+    {
+      "attempts": {
+        "attempts": 67,
+        "completed_moves": 56,
+        "illegal_attempts": 11
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0072",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 112
+    },
+    {
+      "attempts": {
+        "attempts": 366,
+        "completed_moves": 350,
+        "illegal_attempts": 16
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0073",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 232,
+        "completed_moves": 193,
+        "illegal_attempts": 39
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0074",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "insufficient_material",
+      "time_budget_seconds": 1.0,
+      "turn_count": 387
+    },
+    {
+      "attempts": {
+        "attempts": 370,
+        "completed_moves": 350,
+        "illegal_attempts": 20
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0075",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 80,
+        "completed_moves": 35,
+        "illegal_attempts": 45
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0076",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "black",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 70
+    },
+    {
+      "attempts": {
+        "attempts": 249,
+        "completed_moves": 79,
+        "illegal_attempts": 170
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0077",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 157
+    },
+    {
+      "attempts": {
+        "attempts": 501,
+        "completed_moves": 350,
+        "illegal_attempts": 151
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0078",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 969,
+        "completed_moves": 350,
+        "illegal_attempts": 619
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0079",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 375,
+        "completed_moves": 350,
+        "illegal_attempts": 25
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0080",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 355,
+        "completed_moves": 350,
+        "illegal_attempts": 5
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0081",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 632,
+        "completed_moves": 350,
+        "illegal_attempts": 282
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0082",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 302,
+        "completed_moves": 200,
+        "illegal_attempts": 102
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0083",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 400
+    },
+    {
+      "attempts": {
+        "attempts": 359,
+        "completed_moves": 350,
+        "illegal_attempts": 9
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0084",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 385,
+        "completed_moves": 350,
+        "illegal_attempts": 35
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0085",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 445,
+        "completed_moves": 350,
+        "illegal_attempts": 95
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0086",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 586,
+        "completed_moves": 350,
+        "illegal_attempts": 236
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0087",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 396,
+        "completed_moves": 350,
+        "illegal_attempts": 46
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0088",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 750,
+        "completed_moves": 350,
+        "illegal_attempts": 400
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0089",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 557,
+        "completed_moves": 350,
+        "illegal_attempts": 207
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0090",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 114,
+        "completed_moves": 96,
+        "illegal_attempts": 18
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0091",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 191
+    },
+    {
+      "attempts": {
+        "attempts": 360,
+        "completed_moves": 350,
+        "illegal_attempts": 10
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0092",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 387,
+        "completed_moves": 253,
+        "illegal_attempts": 134
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0093",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 506
+    },
+    {
+      "attempts": {
+        "attempts": 550,
+        "completed_moves": 350,
+        "illegal_attempts": 200
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0094",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 423,
+        "completed_moves": 350,
+        "illegal_attempts": 73
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0095",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 390,
+        "completed_moves": 350,
+        "illegal_attempts": 40
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0096",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 79,
+        "completed_moves": 67,
+        "illegal_attempts": 12
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0097",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "loss",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 134
+    },
+    {
+      "attempts": {
+        "attempts": 478,
+        "completed_moves": 350,
+        "illegal_attempts": 128
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0098",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 155,
+        "completed_moves": 122,
+        "illegal_attempts": 33
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0099",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "win",
+      "play_as": "white",
+      "reason": "checkmate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 243
+    },
+    {
+      "attempts": {
+        "attempts": 371,
+        "completed_moves": 350,
+        "illegal_attempts": 21
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBS0100",
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "adjudicated_max_plies",
+      "time_budget_seconds": 1.0,
+      "turn_count": 700
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0001",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0002",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0003",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0004",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0005",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0006",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0007",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0008",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0009",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0010",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0011",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0012",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0013",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0014",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0015",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0016",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0017",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0018",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0019",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0020",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0021",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0022",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0023",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0024",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0025",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0026",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0027",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0028",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0029",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0030",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0031",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0032",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0033",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0034",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0035",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0036",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0037",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0038",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0039",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0040",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0041",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0042",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0043",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0044",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0045",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0046",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0047",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0048",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0049",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0050",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0051",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0052",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0053",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0054",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0055",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0056",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0057",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0058",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0059",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0060",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0061",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0062",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0063",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0064",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0065",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0066",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0067",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0068",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0069",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0070",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0071",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0072",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0073",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0074",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0075",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0076",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0077",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0078",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0079",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0080",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0081",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0082",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0083",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0084",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0085",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0086",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0087",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0088",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0089",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0090",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0091",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0092",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0093",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0094",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0095",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0096",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0097",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0098",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 162,
+        "completed_moves": 95,
+        "illegal_attempts": 67
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0099",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "white",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    },
+    {
+      "attempts": {
+        "attempts": 150,
+        "completed_moves": 95,
+        "illegal_attempts": 55
+      },
+      "bot_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "game_id": "DBD0100",
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "outcome": "draw",
+      "play_as": "black",
+      "reason": "stalemate",
+      "time_budget_seconds": 1.0,
+      "turn_count": 190
+    }
+  ],
+  "generated_at": "2026-05-19T00:50:17Z",
+  "matchups": [
+    {
+      "attempts": 15600,
+      "average_tries_per_completed_move": 1.642,
+      "average_turns": 190.0,
+      "completed_moves": 9500,
+      "draws": 100,
+      "games": 100,
+      "illegal_attempt_rate": 0.391026,
+      "illegal_attempts": 6100,
+      "losses": 0,
+      "opponent": "darkboardmcts-self",
+      "opponent_commit": "505b40bb8ac755ec176a4b207d79cec4e3e2c5c8",
+      "opponent_role": "bot",
+      "time_budget_seconds": 1.0,
+      "timeout_rate": 0.0,
+      "timeouts": 0,
+      "win_rate": 0.0,
+      "wins": 0
+    },
+    {
+      "attempts": 19669,
+      "average_tries_per_completed_move": 1.319,
+      "average_turns": 298.11,
+      "completed_moves": 14910,
+      "draws": 70,
+      "games": 100,
+      "illegal_attempt_rate": 0.241954,
+      "illegal_attempts": 4759,
+      "losses": 7,
+      "opponent": "randobot",
+      "opponent_commit": "9b14973f6f7def42cd2b638f814fa4cdfa8b37c5",
+      "opponent_role": "bot",
+      "time_budget_seconds": 1.0,
+      "timeout_rate": 0.0,
+      "timeouts": 0,
+      "win_rate": 0.23,
+      "wins": 23
+    },
+    {
+      "attempts": 39592,
+      "average_tries_per_completed_move": 1.417,
+      "average_turns": 558.92,
+      "completed_moves": 27948,
+      "draws": 87,
+      "games": 100,
+      "illegal_attempt_rate": 0.2941,
+      "illegal_attempts": 11644,
+      "losses": 7,
+      "opponent": "simpleheuristics",
+      "opponent_commit": "f852bcca8f42322ccffb6d1ab604d3a5ff361950",
+      "opponent_role": "bot",
+      "time_budget_seconds": 1.0,
+      "timeout_rate": 0.0,
+      "timeouts": 0,
+      "win_rate": 0.06,
+      "wins": 6
+    }
+  ],
+  "overall": {
+    "attempts": 74861,
+    "average_tries_per_completed_move": 1.43,
+    "average_turns": 349.01,
+    "completed_moves": 52358,
+    "draws": 257,
+    "games": 300,
+    "illegal_attempt_rate": 0.300597,
+    "illegal_attempts": 22503,
+    "losses": 14,
+    "timeout_rate": 0.0,
+    "timeouts": 0,
+    "win_rate": 0.096667,
+    "wins": 29
+  },
+  "ruleset": "wild16",
+  "schema_version": 1,
+  "source": {
+    "archive_records": 300,
+    "completed_wild16_games": 300,
+    "skipped": {}
+  }
+}
