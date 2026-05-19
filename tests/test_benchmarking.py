@@ -121,7 +121,23 @@ def test_benchmark_report_cli_writes_markdown_and_json(tmp_path) -> None:
     markdown_path = tmp_path / "report.md"
     json_path = tmp_path / "report.json"
     archive_path.write_text(json.dumps(_game(game_code="CLI001", white="darkboardmcts", black="randobot")) + "\n")
-    manifest_path.write_text(json.dumps({"required_matchups": [{"opponent": "randobot", "target_games": 1}]}))
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "required_matchups": [{"opponent": "randobot", "target_games": 1}],
+                "collection": {
+                    "method": "local_ks_game_wild16",
+                    "runner": "darkboard-run-local-benchmark",
+                    "engine_commit": "engine123",
+                    "seed": 20260519,
+                    "mcts_max_iterations": 384,
+                    "selection_rule": "visits",
+                    "max_plies": 700,
+                    "raw_archives_committed": False,
+                },
+            }
+        )
+    )
 
     result = main([str(archive_path), str(markdown_path), "--manifest", str(manifest_path), "--json-output", str(json_path)])
     payload = json.loads(json_path.read_text())
@@ -129,7 +145,10 @@ def test_benchmark_report_cli_writes_markdown_and_json(tmp_path) -> None:
 
     assert result == 0
     assert payload["coverage"]["complete"] is True
+    assert payload["collection"]["runner"] == "darkboard-run-local-benchmark"
     assert "# Darkboard MCTS benchmark" in markdown
+    assert "## Collection" in markdown
+    assert "`local_ks_game_wild16`" in markdown
     assert "`randobot`" in markdown
 
 

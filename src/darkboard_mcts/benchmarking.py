@@ -93,6 +93,7 @@ def generate_benchmark_report(
         "overall": _aggregate_summaries(summaries),
         "matchups": _matchup_rows(summaries),
         "coverage": _coverage(parsed_manifest, summaries),
+        "collection": _collection_metadata(manifest or {}),
         "failure_modes": _failure_modes(summaries),
         "games": [_game_payload(summary) for summary in summaries],
         "data_policy": {
@@ -167,6 +168,24 @@ def render_markdown_report(report: dict[str, Any]) -> str:
                 f"| `{row['opponent']}` | {row['target_games']} | {row['matched_games']} | "
                 f"{_time_budget(row.get('time_budget_seconds'))} | `{row['status']}` |"
             )
+
+    collection = report.get("collection") if isinstance(report.get("collection"), dict) else {}
+    if collection:
+        lines.extend(
+            [
+                "",
+                "## Collection",
+                "",
+                f"- Method: `{collection.get('method') or 'unknown'}`",
+                f"- Runner: `{collection.get('runner') or 'unknown'}`",
+                f"- Engine commit: `{collection.get('engine_commit') or 'unknown'}`",
+                f"- Seed: `{collection.get('seed') if collection.get('seed') is not None else 'unknown'}`",
+                f"- MCTS max iterations: `{collection.get('mcts_max_iterations') if collection.get('mcts_max_iterations') is not None else 'unknown'}`",
+                f"- Selection rule: `{collection.get('selection_rule') or 'unknown'}`",
+                f"- Max plies: `{collection.get('max_plies') if collection.get('max_plies') is not None else 'unknown'}`",
+                f"- Raw archives committed: `{collection.get('raw_archives_committed')}`",
+            ]
+        )
 
     failure_modes = report.get("failure_modes") if isinstance(report.get("failure_modes"), list) else []
     lines.extend(["", "## Failure Modes", ""])
@@ -287,6 +306,11 @@ def _benchmark_metadata(game: dict[str, Any]) -> dict[str, Any]:
         if isinstance(candidate, dict):
             return candidate
     return {}
+
+
+def _collection_metadata(manifest: dict[str, Any]) -> dict[str, Any]:
+    collection = manifest.get("collection")
+    return dict(collection) if isinstance(collection, dict) else {}
 
 
 def _attempt_stats(game: dict[str, Any], *, color: str) -> AttemptStats:

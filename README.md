@@ -41,14 +41,17 @@ This repository now contains:
 - a metaposition-inspired matrix abstraction for public-safe positional scoring
 - an optional reviewed aggregate `priors.json` loader and offline generator
 - a repeatable benchmark report generator for completed Wild 16 archive exports
+- a local Wild 16 benchmark runner for reproducible bot-only baseline batches
+- a benchmark-driven endgame urgency term for reducing long sterile games
 - a deterministic one-ply evaluator for move attempts
 - an implementation plan grounded in the public Darkboard papers
 - a versioned roadmap for covering the public Darkboard paper ideas
 - tests for the scaffold and runtime loop
 
 The championship-strength work is intentionally still ahead: reviewed match
-data collection and tuning. Benchmark reports now exist, but strength claims
-still require complete coverage and enough games.
+data collection and tuning. The first 300-game local baseline is committed under
+[`benchmarks/base-1.0.0`](benchmarks/base-1.0.0), but live strength claims should
+still distinguish local-engine benchmarks from production platform games.
 
 The runtime is intentionally conservative:
 
@@ -65,6 +68,8 @@ The runtime is intentionally conservative:
   `DARKBOARD_QUIESCENCE_*` environment overrides
 - applies metaposition-inspired positional adjustments under
   `DARKBOARD_METAPOSITION_*` environment overrides
+- applies benchmark-driven long-game urgency under
+  `DARKBOARD_ENDGAME_*` environment overrides
 - can load reviewed aggregate priors from `priors.json` or
   `DARKBOARD_PRIORS_PATH`
 - does not learn continuously in production and does not model individual
@@ -112,6 +117,17 @@ Metaposition weights currently include:
 - `DARKBOARD_METAPOSITION_CHECKMATING_PRESSURE_SCALE`
 - `DARKBOARD_METAPOSITION_MAX_ADJUSTMENT`
 
+Endgame urgency weights currently include:
+
+- `DARKBOARD_ENDGAME_START_PLY`
+- `DARKBOARD_ENDGAME_FULL_PLY`
+- `DARKBOARD_ENDGAME_CAPTURE_SCALE`
+- `DARKBOARD_ENDGAME_CHECK_SCALE`
+- `DARKBOARD_ENDGAME_PROMOTION_SCALE`
+- `DARKBOARD_ENDGAME_QUIET_PENALTY`
+- `DARKBOARD_ENDGAME_ILLEGAL_PENALTY`
+- `DARKBOARD_ENDGAME_MAX_ADJUSTMENT`
+
 Aggregate prior controls:
 
 - `DARKBOARD_PRIORS_PATH` optionally points at a reviewed aggregate priors file
@@ -129,6 +145,9 @@ Benchmark reporting:
 - `--manifest benchmark.json` adds required matchups, target game counts,
   commits, time budgets, and provider-availability flags
 - `--json-output report.json` writes the machine-readable report payload
+- `darkboard-run-local-benchmark <archive.jsonl>` can generate reproducible
+  local Wild 16 bot-only archive exports from `ks-game` for operator-reviewed
+  baseline batches
 
 See [`docs/benchmarking.md`](docs/benchmarking.md) for the manifest schema and
 coverage rules.

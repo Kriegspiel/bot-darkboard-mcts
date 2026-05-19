@@ -73,6 +73,9 @@ Current deterministic baseline:
 - adds metaposition-inspired public-safe positional evaluation underneath MCTS
 - blends in reviewed aggregate priors from an optional `priors.json`
 - can generate repeatable benchmark reports from completed Wild 16 archives
+- can generate local Wild 16 benchmark archives for reviewed bot-only baseline
+  batches
+- applies benchmark-driven endgame urgency when games become very long
 - retries attempts until one completes the turn or the ranked list is exhausted
 - carries forward per-game opponent matrices from `.bot-state.json`
 - applies referee evidence after each move attempt and on the next observed turn
@@ -108,11 +111,15 @@ Current deterministic baseline:
    - Done for the initial benchmark reporting workflow.
    - Generate aggregate reports from prepared completed Wild 16 archive exports
      with `darkboard-benchmark-report`.
+   - Generate reproducible local Wild 16 bot-only archive exports with
+     `darkboard-run-local-benchmark` when a reviewed offline baseline is needed.
    - Use a manifest to require random bot, simple-heuristics, provider-backed
      model bots when available, previous-version, and self-play matchups.
    - Report bot commit, opponent commits, time budget, game count, ruleset,
      win/loss/draw counts, illegal-attempt rate, average tries per completed
      move, average turns, timeout rate, and representative failure modes.
+   - Record collection method, runner, engine commit, seed, MCTS settings, and
+     local adjudication cap in the report.
    - Treat incomplete manifest coverage as a blocker for public strength claims.
    - Keep actual game scheduling outside this bot runtime so benchmarks remain
      explicit, reviewed, and reproducible.
@@ -131,6 +138,16 @@ Current deterministic baseline:
    - Keep per-opponent priors out of the first version unless privacy and data
      retention rules are explicitly designed.
    - Do not let the live bot continuously learn from production games.
+
+9. Benchmark-driven tuning
+   - First baseline is committed under `benchmarks/base-1.0.0`.
+   - Baseline covers 100 local Wild 16 games against `randobot`, 100 against
+     `simpleheuristics`, and 100 against `darkboardmcts-self`.
+   - Increase default illegal-attempt pressure after the baseline showed a
+     30.1% illegal-attempt rate.
+   - Add `DARKBOARD_ENDGAME_*` urgency weights after the baseline showed 257
+     draws and 80 local max-ply adjudications.
+   - Keep raw archive exports out of git; commit reviewed reports and manifests.
 
 ## Non-goals
 

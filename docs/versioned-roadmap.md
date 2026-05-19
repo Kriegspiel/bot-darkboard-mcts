@@ -232,14 +232,43 @@ Paper coverage:
 - Matches the empirical reporting habit of the public Darkboard papers.
 - Gives the platform its first real baseline for future research claims.
 
-### `1.1.0+` - tuning and optional advanced research
+### `1.1.0` - baseline data and first benchmark-driven tuning
 
-Only after the paper-shaped implementation exists.
+Status: shipped.
 
-- Tune weights from benchmark data.
-- Compare most-visited versus best-valued root selection.
+Collect the first committed local baseline and tune the default policy from the
+observed failure modes.
+
+- Add `darkboard-run-local-benchmark` for reproducible local Wild 16 bot-only
+  benchmark batches.
+- Commit the reviewed `1.0.0` baseline:
+  - 100 games versus `randobot`
+  - 100 games versus `simpleheuristics`
+  - 100 games versus a `darkboardmcts-self` clone
+- Record collection method, runner, commits, seed, MCTS settings, and
+  adjudication cap in the benchmark manifest and report.
+- Keep the raw archive export out of git while committing the reviewed
+  aggregate/per-game summary report.
+- Raise the default illegal-attempt penalty after the baseline showed a 30.1%
+  illegal-attempt rate.
+- Add configurable `DARKBOARD_ENDGAME_*` urgency scoring after the baseline
+  produced 257 draws and 80 local max-ply adjudications.
+- Keep most-visited root selection as the default until a dedicated A/B report
+  justifies changing it.
+
+Paper coverage:
+
+- Starts the paper-style benchmark/tune loop rather than only implementing the
+  search shape.
+- Adds an explicit long-game policy response to empirical draw/adjudication
+  rates.
+
+### `1.2.0+` - optional advanced research
+
+- Compare most-visited versus best-valued root selection with a dedicated
+  benchmark report.
 - Add progressive widening if branching dominates runtime.
-- Add stronger endgame-specific policies.
+- Add stronger endgame-specific policies if urgency scoring is not enough.
 - Consider a separate metaposition/minimax comparison mode.
 - Consider per-opponent modeling only after explicit privacy, retention, and
   product decisions.
@@ -258,6 +287,7 @@ Only after the paper-shaped implementation exists.
 | 2007 metaposition-inspired abstraction | `0.8.0` |
 | aggregate game-log priors | `0.9.0` |
 | paper-style benchmark report | `1.0.0` |
+| benchmark-driven tuning loop | `1.1.0` |
 
 ## Non-goals Until Explicitly Revisited
 

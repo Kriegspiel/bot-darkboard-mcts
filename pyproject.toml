@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bot-darkboard-mcts"
-version = "1.0.0"
+version = "1.1.0"
 description = "Darkboard-inspired Kriegspiel bot research scaffold"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -19,6 +19,7 @@ dependencies = [
 darkboard-mcts-bot = "darkboard_mcts.api:main"
 darkboard-generate-priors = "darkboard_mcts.prior_generation:main"
 darkboard-benchmark-report = "darkboard_mcts.benchmarking:main"
+darkboard-run-local-benchmark = "darkboard_mcts.local_benchmark:main"
 
 [project.optional-dependencies]
 dev = [
