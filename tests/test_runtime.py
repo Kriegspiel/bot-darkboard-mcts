@@ -183,6 +183,31 @@ def test_join_probability_config_migration_preserves_explicit_non_half_probabili
     assert saved_state["config_migrations"][api.BOT_JOIN_PROBABILITY_CONFIG_MIGRATION] is True
 
 
+def test_maybe_join_bot_lobby_game_records_sample_even_without_candidate() -> None:
+    with tempfile.TemporaryDirectory() as temp_dir:
+        state_path = Path(temp_dir) / ".bot-state.json"
+        with patch.object(api, "STATE_PATH", state_path):
+            with patch.object(api, "get_json", return_value={"games": []}):
+                with patch.object(api.time, "time", return_value=100.0):
+                    with patch.object(api, "post_json") as post_json:
+                        assert api.maybe_join_bot_lobby_game([]) is False
+                        post_json.assert_not_called()
+
+            assert api.can_attempt_bot_join(now=130.0) is False
+            assert api.can_attempt_bot_join(now=161.0) is True
+
+
+def test_maybe_join_bot_lobby_game_skips_open_sample_during_cooldown() -> None:
+    with tempfile.TemporaryDirectory() as temp_dir:
+        state_path = Path(temp_dir) / ".bot-state.json"
+        with patch.object(api, "STATE_PATH", state_path):
+            api.record_bot_join_attempt(now=100.0)
+            with patch.object(api.time, "time", return_value=130.0):
+                with patch.object(api, "get_json") as get_json:
+                    assert api.maybe_join_bot_lobby_game([]) is False
+                    get_json.assert_not_called()
+
+
 def test_maybe_play_game_retries_ranked_attempts_until_one_completes() -> None:
     state = {
         "game_id": "game-1",

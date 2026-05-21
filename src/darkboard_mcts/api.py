@@ -405,13 +405,13 @@ def choose_bot_game_to_join(open_games: list[dict[str, Any]]) -> dict[str, Any] 
 def maybe_join_bot_lobby_game(games: list[dict[str, Any]]) -> bool:
     if not under_active_game_limit(games) or not can_attempt_bot_join():
         return False
+    record_bot_join_attempt()
     open_games = get_json("/game/open").get("games", [])
     if not isinstance(open_games, list):
         return False
     candidate = choose_bot_game_to_join(open_games)
     if candidate is None:
         return False
-    record_bot_join_attempt()
     if bot_game_pick_probability() <= 0:
         return False
     if random.random() >= bot_game_pick_probability():
