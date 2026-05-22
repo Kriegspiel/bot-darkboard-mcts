@@ -152,6 +152,8 @@ Benchmark reporting:
 - `darkboard-run-local-benchmark <archive.jsonl>` can generate reproducible
   local Wild 16 bot-only archive exports from `ks-game` for operator-reviewed
   baseline batches
+- `--progress-every N` prints streaming progress during large local benchmark
+  runs; use `0` to disable progress output
 
 See [`docs/benchmarking.md`](docs/benchmarking.md) for the manifest schema and
 coverage rules.

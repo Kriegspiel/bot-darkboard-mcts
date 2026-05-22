@@ -288,6 +288,28 @@ Paper coverage:
 - Adds a more explicit endgame conversion policy for the empirically observed
   draw problem.
 
+### `1.2.1` - large-sample benchmark runner
+
+Status: shipped.
+
+Make thousand-game local benchmark gates practical before shipping more engine
+tuning.
+
+- Stream local benchmark records to JSONL as each game completes instead of
+  buffering the full raw archive in memory.
+- Print JSON progress with `--progress-every`, including completed record count
+  and max-ply adjudications.
+- Mark games as `no_completed_move` if a local policy exhausts its generated
+  attempt list without completing a move, exposing policy-loop failures instead
+  of spinning indefinitely.
+- Keep raw archives out of git; use generated aggregate reports for reviewed
+  strength comparisons.
+
+Paper coverage:
+
+- Strengthens the benchmark-driven tuning loop so paper-inspired changes can be
+  accepted or rejected on larger samples instead of smoke-test variance.
+
 ### `1.3.0+` - optional advanced research
 
 - Add progressive widening if branching dominates runtime.

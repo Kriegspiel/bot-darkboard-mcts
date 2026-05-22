@@ -25,6 +25,11 @@ For local bot-only baselines, `darkboard-run-local-benchmark` can drive the
 Use it for reproducible offline baselines, not as a substitute for production
 platform-game evidence.
 
+Large local batches are streamed to JSONL as each game completes, so thousand
+game tuning runs do not need to hold the full raw archive in memory. The runner
+prints JSON progress every `--progress-every` completed records; set it to `0`
+to silence progress output.
+
 ## Manifest
 
 The manifest records the intended benchmark matrix. Missing required matchups
