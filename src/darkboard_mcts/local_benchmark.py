@@ -9,7 +9,8 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ProcessPoolExecutor
-from collections.abc import Iterable, Sequence
+from concurrent.futures import as_completed
+from collections.abc import Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -114,6 +115,38 @@ def run_benchmark_games(
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Run a local benchmark matrix and return archive-like records plus a manifest."""
 
+    jobs, manifest = _benchmark_jobs(
+        games_per_matchup=games_per_matchup,
+        bot_commit=bot_commit,
+        random_commit=random_commit,
+        simple_commit=simple_commit,
+        engine_commit=engine_commit,
+        seed=seed,
+        matchups=matchups,
+        time_budget_seconds=time_budget_seconds,
+        mcts_max_iterations=mcts_max_iterations,
+        selection_rule=selection_rule,
+        max_plies=max_plies,
+        benchmark_name=benchmark_name,
+    )
+    return list(_iter_play_jobs(jobs, workers=workers)), manifest
+
+
+def _benchmark_jobs(
+    *,
+    games_per_matchup: int,
+    bot_commit: str | None,
+    random_commit: str | None,
+    simple_commit: str | None,
+    engine_commit: str | None,
+    seed: int,
+    matchups: Sequence[str],
+    time_budget_seconds: float,
+    mcts_max_iterations: int,
+    selection_rule: str,
+    max_plies: int,
+    benchmark_name: str,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     benchmark_bot = PlayerSpec(DEFAULT_BOT_USERNAME, "darkboard", bot_commit)
     matchup_specs = _matchup_specs(
         matchups=matchups,
@@ -154,13 +187,19 @@ def run_benchmark_games(
                     "max_plies": max_plies,
                 }
             )
+    return jobs, manifest
 
+
+def _iter_play_jobs(jobs: Sequence[dict[str, Any]], *, workers: int) -> Iterator[dict[str, Any]]:
     if workers <= 1:
-        records = [_play_job(job) for job in jobs]
-    else:
-        with ProcessPoolExecutor(max_workers=workers) as executor:
-            records = list(executor.map(_play_job, jobs, chunksize=1))
-    return records, manifest
+        for job in jobs:
+            yield _play_job(job)
+        return
+
+    with ProcessPoolExecutor(max_workers=workers) as executor:
+        futures = [executor.submit(_play_job, job) for job in jobs]
+        for future in as_completed(futures):
+            yield future.result()
 
 
 def _play_job(job: dict[str, Any]) -> dict[str, Any]:
@@ -238,7 +277,9 @@ def play_local_game(
         if bool(game.game_over):
             break
         if not completed_this_turn:
-            continue
+            terminal_reason = "no_completed_move"
+            terminal_winner = None
+            break
 
     if not bool(game.game_over) and completed_plies >= max_plies:
         terminal_reason = "adjudicated_max_plies"
@@ -716,14 +757,18 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--selection-rule", choices=("visits", "value"), default=DEFAULT_SELECTION_RULE)
     parser.add_argument("--max-plies", type=int, default=DEFAULT_MAX_PLIES)
     parser.add_argument("--workers", type=int, default=1)
+    parser.add_argument("--progress-every", type=int, default=25)
     parser.add_argument("--benchmark-name", default="Darkboard MCTS Wild 16 local benchmark")
     return parser.parse_args(argv)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
-    records, manifest = run_benchmark_games(
-        games_per_matchup=max(1, args.games_per_matchup),
+    games_per_matchup = max(1, args.games_per_matchup)
+    max_plies = max(1, args.max_plies)
+    workers = max(1, args.workers)
+    jobs, manifest = _benchmark_jobs(
+        games_per_matchup=games_per_matchup,
         bot_commit=args.bot_commit,
         random_commit=args.random_commit,
         simple_commit=args.simple_commit,
@@ -733,19 +778,39 @@ def main(argv: Sequence[str] | None = None) -> int:
         time_budget_seconds=max(0.0, args.time_budget_seconds),
         mcts_max_iterations=max(1, args.mcts_max_iterations),
         selection_rule=args.selection_rule,
-        max_plies=max(1, args.max_plies),
-        workers=max(1, args.workers),
+        max_plies=max_plies,
         benchmark_name=args.benchmark_name,
     )
-    write_jsonl(args.output, records)
     if args.manifest_output:
         write_json(args.manifest_output, manifest)
-    completed = sum(1 for record in records if record.get("state") == "completed")
-    adjudicated = sum(1 for record in records if (record.get("result") or {}).get("reason") == "adjudicated_max_plies")
+
+    output = Path(args.output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    completed = 0
+    adjudicated = 0
+    total = len(jobs)
+    progress_every = max(0, args.progress_every)
+    with output.open("w") as handle:
+        for index, record in enumerate(_iter_play_jobs(jobs, workers=workers), start=1):
+            handle.write(json.dumps(record, sort_keys=True) + "\n")
+            completed += 1 if record.get("state") == "completed" else 0
+            adjudicated += 1 if (record.get("result") or {}).get("reason") == "adjudicated_max_plies" else 0
+            if progress_every and (index == total or index % progress_every == 0):
+                print(
+                    json.dumps(
+                        {
+                            "completed_records": index,
+                            "total_records": total,
+                            "adjudicated_max_plies": adjudicated,
+                        },
+                        sort_keys=True,
+                    ),
+                    flush=True,
+                )
     print(
         json.dumps(
             {
-                "records": len(records),
+                "records": total,
                 "completed": completed,
                 "adjudicated_max_plies": adjudicated,
                 "output": str(args.output),

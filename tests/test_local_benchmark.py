@@ -1,6 +1,9 @@
+import json
+
 from darkboard_mcts.benchmarking import generate_benchmark_report
 from darkboard_mcts.local_benchmark import DEFAULT_RANDOM_USERNAME
 from darkboard_mcts.local_benchmark import DEFAULT_SELF_USERNAME
+from darkboard_mcts.local_benchmark import main
 from darkboard_mcts.local_benchmark import play_local_game
 from darkboard_mcts.local_benchmark import PlayerSpec
 from darkboard_mcts.local_benchmark import run_benchmark_games
@@ -52,3 +55,34 @@ def test_run_benchmark_games_builds_manifest_and_reportable_self_matchup() -> No
     assert report["coverage"]["complete"] is True
     assert report["overall"]["games"] == 2
     assert {row["opponent"] for row in report["matchups"]} == {"randobot", "darkboardmcts-self"}
+
+
+def test_local_benchmark_cli_streams_records_and_progress(tmp_path, capsys) -> None:
+    archive_path = tmp_path / "archive.jsonl"
+    manifest_path = tmp_path / "manifest.json"
+
+    exit_code = main(
+        [
+            str(archive_path),
+            "--manifest-output",
+            str(manifest_path),
+            "--games-per-matchup",
+            "1",
+            "--matchups",
+            "randobot",
+            "--time-budget-seconds",
+            "0",
+            "--mcts-max-iterations",
+            "1",
+            "--max-plies",
+            "2",
+            "--progress-every",
+            "1",
+        ]
+    )
+
+    assert exit_code == 0
+    records = [json.loads(line) for line in archive_path.read_text().splitlines()]
+    assert len(records) == 1
+    assert json.loads(manifest_path.read_text())["required_matchups"][0]["target_games"] == 1
+    assert '"completed_records": 1' in capsys.readouterr().out
