@@ -25,7 +25,7 @@ class MCTSConfig:
     time_budget_seconds: float = 1.0
     max_iterations: int = 384
     exploration: float = 1.4
-    selection_rule: str = "visits"
+    selection_rule: str = "value"
     seed: int = 0
 
     @classmethod
@@ -35,7 +35,7 @@ class MCTSConfig:
             time_budget_seconds=_float_env("DARKBOARD_MCTS_TIME_BUDGET_SECONDS", 1.0, minimum=0.0, maximum=8.0),
             max_iterations=_int_env("DARKBOARD_MCTS_MAX_ITERATIONS", 384, minimum=1),
             exploration=_float_env("DARKBOARD_MCTS_EXPLORATION", 1.4, minimum=0.0, maximum=10.0),
-            selection_rule=_selection_rule_env("DARKBOARD_MCTS_SELECTION_RULE", "visits"),
+            selection_rule=_selection_rule_env("DARKBOARD_MCTS_SELECTION_RULE", "value"),
             seed=_int_env("DARKBOARD_MCTS_SEED", 0, minimum=0),
         )
 
@@ -164,7 +164,7 @@ def _action_node(score: ActionScore) -> ActionNode:
     capture = legal * _clamp(score.capture_probability)
     check = legal * (1.0 - _clamp(score.capture_probability)) * _clamp(score.check_probability)
     quiet = max(0.0, legal - capture - check)
-    leaf_adjustment = score.quiescence_adjustment + score.metaposition_adjustment
+    leaf_adjustment = score.quiescence_adjustment + score.metaposition_adjustment + score.endgame_urgency
 
     branches = _normalize_branches(
         {
@@ -242,14 +242,14 @@ def _backup(root: RootNode, *, action: ActionNode, value: float) -> None:
     root.visits += 1
     action.visits += 1
     action.best_value = max(action.best_value, value)
-    action.value_sum += action.best_value
+    action.value_sum += value
 
 
 def _rank_actions(root: RootNode, *, config: MCTSConfig) -> tuple[str, ...]:
     if config.selection_rule == "value":
         key = lambda child: (
-            -child.best_value,
             -child.average_value,
+            -child.best_value,
             -child.visits,
             -child.prior_score.score,
             child.uci,

@@ -107,6 +107,7 @@ def evaluate_action(belief: BeliefState, *, board: chess.Board, uci: str) -> Act
     )
     endgame_urgency = evaluate_endgame_urgency(
         belief,
+        board=board,
         move=move,
         piece=piece,
         outcome=outcome,

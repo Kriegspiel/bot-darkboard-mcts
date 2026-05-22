@@ -62,7 +62,7 @@ are reported as coverage gaps.
     "engine_commit": "enginecommit",
     "seed": 20260519,
     "mcts_max_iterations": 384,
-    "selection_rule": "visits",
+    "selection_rule": "value",
     "max_plies": 700,
     "raw_archives_committed": false
   }
@@ -126,5 +126,5 @@ The first reviewed local baseline lives in
 - 100 games versus `randobot`
 - 100 games versus `simpleheuristics`
 - 100 games versus `darkboardmcts-self`
-- production MCTS defaults: 1 second, 384 max iterations, `visits` selection
+- 1.0.0 production MCTS defaults: 1 second, 384 max iterations, `visits` selection
 - 700-ply local adjudication cap, reported as `adjudicated_max_plies`

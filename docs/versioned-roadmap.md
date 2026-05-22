@@ -263,12 +263,35 @@ Paper coverage:
 - Adds an explicit long-game policy response to empirical draw/adjudication
   rates.
 
-### `1.2.0+` - optional advanced research
+### `1.2.0` - conversion pressure and robust MCTS values
 
-- Compare most-visited versus best-valued root selection with a dedicated
-  benchmark report.
+Status: shipped.
+
+Respond to the live draw-heavy records against `randobot` and
+`simpleheuristics` by making the public-outcome search less optimistic and more
+conversion-oriented.
+
+- Use sampled average value for MCTS backup while retaining best sampled value
+  only as a secondary ordering signal.
+- Change the default root-return rule from most visited to best value, while
+  keeping `DARKBOARD_MCTS_SELECTION_RULE=visits` available for A/B checks.
+- Include benchmark-driven endgame urgency in MCTS leaf branch values, not only
+  in the deterministic fallback score.
+- Start conversion pressure earlier when public material estimates show a clear
+  material advantage or low opponent material.
+- Expose conversion thresholds through `DARKBOARD_ENDGAME_*` overrides.
+
+Paper coverage:
+
+- Keeps the Approach C search closer to expected public-referee value instead
+  of over-weighting rare sampled high rolls.
+- Adds a more explicit endgame conversion policy for the empirically observed
+  draw problem.
+
+### `1.3.0+` - optional advanced research
+
 - Add progressive widening if branching dominates runtime.
-- Add stronger endgame-specific policies if urgency scoring is not enough.
+- Add stronger endgame-specific policies if conversion urgency is not enough.
 - Consider a separate metaposition/minimax comparison mode.
 - Consider per-opponent modeling only after explicit privacy, retention, and
   product decisions.

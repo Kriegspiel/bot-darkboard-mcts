@@ -37,6 +37,7 @@ DEFAULT_SELF_USERNAME = "darkboardmcts-self"
 DEFAULT_MATCHUPS = (DEFAULT_RANDOM_USERNAME, DEFAULT_SIMPLE_USERNAME, DEFAULT_SELF_USERNAME)
 DEFAULT_TIME_BUDGET_SECONDS = 1.0
 DEFAULT_MCTS_MAX_ITERATIONS = 384
+DEFAULT_SELECTION_RULE = "value"
 DEFAULT_MAX_PLIES = 700
 BENCHMARK_RUNNER_VERSION = 1
 T = TypeVar("T")
@@ -106,7 +107,7 @@ def run_benchmark_games(
     matchups: Sequence[str] = DEFAULT_MATCHUPS,
     time_budget_seconds: float = DEFAULT_TIME_BUDGET_SECONDS,
     mcts_max_iterations: int = DEFAULT_MCTS_MAX_ITERATIONS,
-    selection_rule: str = "visits",
+    selection_rule: str = DEFAULT_SELECTION_RULE,
     max_plies: int = DEFAULT_MAX_PLIES,
     workers: int = 1,
     benchmark_name: str = "Darkboard MCTS Wild 16 local benchmark",
@@ -712,7 +713,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--engine-commit")
     parser.add_argument("--time-budget-seconds", type=float, default=DEFAULT_TIME_BUDGET_SECONDS)
     parser.add_argument("--mcts-max-iterations", type=int, default=DEFAULT_MCTS_MAX_ITERATIONS)
-    parser.add_argument("--selection-rule", choices=("visits", "value"), default="visits")
+    parser.add_argument("--selection-rule", choices=("visits", "value"), default=DEFAULT_SELECTION_RULE)
     parser.add_argument("--max-plies", type=int, default=DEFAULT_MAX_PLIES)
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--benchmark-name", default="Darkboard MCTS Wild 16 local benchmark")
