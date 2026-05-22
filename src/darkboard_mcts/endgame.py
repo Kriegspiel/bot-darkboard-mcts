@@ -19,14 +19,18 @@ WEIGHT_ENV_PREFIX = "DARKBOARD_ENDGAME_"
 class EndgameWeights:
     """Tunable pressure to avoid very long low-contact games."""
 
-    start_ply: float = 180.0
-    full_ply: float = 520.0
-    capture_scale: float = 0.22
-    check_scale: float = 135.0
-    promotion_scale: float = 0.62
-    quiet_penalty: float = 34.0
-    illegal_penalty: float = 42.0
-    max_adjustment: float = 220.0
+    start_ply: float = 140.0
+    full_ply: float = 420.0
+    material_advantage_start: float = 260.0
+    material_advantage_full: float = 900.0
+    low_opponent_material_start: float = 1400.0
+    low_opponent_material_full: float = 450.0
+    capture_scale: float = 0.31
+    check_scale: float = 190.0
+    promotion_scale: float = 0.78
+    quiet_penalty: float = 48.0
+    illegal_penalty: float = 58.0
+    max_adjustment: float = 320.0
 
     @classmethod
     def from_env(cls) -> "EndgameWeights":
@@ -45,6 +49,7 @@ class EndgameWeights:
 def evaluate_endgame_urgency(
     belief: BeliefState,
     *,
+    board: chess.Board,
     move: chess.Move,
     piece: chess.Piece,
     outcome: RefereeOutcomeEstimate,
@@ -53,7 +58,7 @@ def evaluate_endgame_urgency(
     """Score forcing progress once benchmark data says games are dragging."""
 
     weights = weights or EndgameWeights.from_env()
-    phase = _phase(belief.ply, weights=weights)
+    phase = max(_phase(belief.ply, weights=weights), _conversion_phase(belief, board=board, weights=weights))
     if phase <= 0:
         return 0.0
 
@@ -73,6 +78,25 @@ def _phase(ply: int, *, weights: EndgameWeights) -> float:
     return _clamp((ply - weights.start_ply) / span, 0.0, 1.0)
 
 
+def _conversion_phase(belief: BeliefState, *, board: chess.Board, weights: EndgameWeights) -> float:
+    own_material = _own_material_value(board=board, color=belief.color)
+    opponent_material = _opponent_material_value(belief)
+    advantage = own_material - opponent_material
+    advantage_phase = _clamp(
+        (advantage - weights.material_advantage_start)
+        / max(1.0, weights.material_advantage_full - weights.material_advantage_start),
+        0.0,
+        1.0,
+    )
+    low_material_phase = _clamp(
+        (weights.low_opponent_material_start - opponent_material)
+        / max(1.0, weights.low_opponent_material_start - weights.low_opponent_material_full),
+        0.0,
+        1.0,
+    )
+    return max(advantage_phase, low_material_phase * 0.85)
+
+
 def _promotion_pressure(
     *,
     belief: BeliefState,
@@ -89,6 +113,20 @@ def _promotion_pressure(
     if ranks_to_promotion > 2:
         return 0.0
     return (3 - ranks_to_promotion) * 85.0 * outcome.legal_probability
+
+
+def _own_material_value(*, board: chess.Board, color: chess.Color) -> float:
+    return sum(
+        PIECE_VALUES.get(piece.piece_type, 360.0)
+        for piece in board.piece_map().values()
+        if piece.color == color and piece.piece_type != chess.KING
+    )
+
+
+def _opponent_material_value(belief: BeliefState) -> float:
+    return (sum(max(0.0, value) for value in belief.opponent_pawns) * PIECE_VALUES[chess.PAWN]) + (
+        sum(max(0.0, value) for value in belief.opponent_pieces) * 360.0
+    )
 
 
 def _clamp(value: float, minimum: float, maximum: float) -> float:

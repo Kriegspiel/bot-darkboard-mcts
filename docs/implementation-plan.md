@@ -53,12 +53,12 @@ used by the public Darkboard papers. In platform terms this means:
    - UCT allocates iterations across API-exposed move attempts.
    - New nodes use weighted one-move outcome probabilities from the referee
      model.
-   - Backup tracks max-observed branch value while retaining average value for
-     UCT selection.
+   - Backup tracks sampled average value for UCT selection while retaining the
+     best sampled value only as a secondary ordering signal.
    - Runtime config supports 1s, 2s, 4s, and 8s budgets through
      `DARKBOARD_MCTS_TIME_BUDGET_SECONDS`, with `DARKBOARD_MCTS_MAX_ITERATIONS`
      as a second bound.
-   - Move return can use most visited or best value via
+   - Move return defaults to best value and can still use most visited via
      `DARKBOARD_MCTS_SELECTION_RULE`.
 
 Current deterministic baseline:
@@ -75,7 +75,8 @@ Current deterministic baseline:
 - can generate repeatable benchmark reports from completed Wild 16 archives
 - can generate local Wild 16 benchmark archives for reviewed bot-only baseline
   batches
-- applies benchmark-driven endgame urgency when games become very long
+- applies benchmark-driven endgame urgency when games become long or when
+  public material suggests a conversion phase
 - retries attempts until one completes the turn or the ranked list is exhausted
 - carries forward per-game opponent matrices from `.bot-state.json`
 - applies referee evidence after each move attempt and on the next observed turn

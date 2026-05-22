@@ -92,3 +92,30 @@ def test_mcts_config_reads_env_and_clamps_budget() -> None:
     assert config.exploration == 2.5
     assert config.selection_rule == "value"
     assert config.seed == 42
+
+
+def test_mcts_defaults_to_value_selection() -> None:
+    with patch.dict("os.environ", {}, clear=True):
+        config = MCTSConfig.from_env()
+
+    assert config.selection_rule == "value"
+
+
+def test_mcts_legal_leaf_branches_include_endgame_urgency() -> None:
+    belief = BeliefState(
+        color=chess.WHITE,
+        visible_fen="8/8/8/8/8/8/3P4/4K3 w - - 0 1",
+        legal_actions=("d2e3",),
+        opponent_pieces=matrix(chess.E3, 1.0),
+        ply=600,
+    )
+
+    score = ranked_action_scores(belief)[0]
+    result = search(
+        belief,
+        config=MCTSConfig(time_budget_seconds=1.0, max_iterations=1, selection_rule="value", seed=5),
+    )
+    capture = result.root.children["d2e3"].own_outcomes["capture"]
+
+    assert score.endgame_urgency > 0
+    assert capture.value >= score.endgame_urgency
