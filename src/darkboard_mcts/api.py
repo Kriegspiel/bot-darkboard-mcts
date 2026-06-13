@@ -273,7 +273,6 @@ def supported_rule_variants() -> list[str]:
 def register_bot() -> None:
     response = requests.post(
         f"{base_url()}/auth/bots/register",
-        headers={"X-Bot-Registration-Key": os.environ["KRIEGSPIEL_BOT_REGISTRATION_KEY"]},
         json={
             "username": os.environ.get("KRIEGSPIEL_BOT_USERNAME", "darkboardmcts"),
             "display_name": os.environ.get("KRIEGSPIEL_BOT_DISPLAY_NAME", "Darkboard MCTS"),

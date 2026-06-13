@@ -169,8 +169,8 @@ pytest
 
 ## Runtime
 
-Create a local `.env` from `.env.example`, set the registration key and owner
-email, then register and run:
+Create a local `.env` from `.env.example`, set the owner email, then register
+and run:
 
 ```bash
 python bot.py --register

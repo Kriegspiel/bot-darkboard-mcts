@@ -33,7 +33,6 @@ def test_register_bot_advertises_wild16_and_lists_by_default() -> None:
 
     env = {
         "KRIEGSPIEL_API_BASE": "https://api.example.test",
-        "KRIEGSPIEL_BOT_REGISTRATION_KEY": "registration-key",
         "KRIEGSPIEL_BOT_USERNAME": "darkboardmcts",
         "KRIEGSPIEL_BOT_DISPLAY_NAME": "Darkboard MCTS",
         "KRIEGSPIEL_BOT_OWNER_EMAIL": "bots@example.test",
@@ -46,6 +45,7 @@ def test_register_bot_advertises_wild16_and_lists_by_default() -> None:
 
     assert posts[0]["json"]["supported_rule_variants"] == ["wild16"]
     assert posts[0]["json"]["listed"] is True
+    assert "headers" not in posts[0]
 
 
 def test_register_bot_can_be_kept_unlisted_by_env() -> None:
@@ -60,7 +60,6 @@ def test_register_bot_can_be_kept_unlisted_by_env() -> None:
 
     env = {
         "KRIEGSPIEL_API_BASE": "https://api.example.test",
-        "KRIEGSPIEL_BOT_REGISTRATION_KEY": "registration-key",
         "KRIEGSPIEL_BOT_USERNAME": "darkboardmcts",
         "KRIEGSPIEL_BOT_DISPLAY_NAME": "Darkboard MCTS",
         "KRIEGSPIEL_BOT_OWNER_EMAIL": "bots@example.test",
@@ -73,6 +72,7 @@ def test_register_bot_can_be_kept_unlisted_by_env() -> None:
                     api.register_bot()
 
     assert posts[0]["json"]["listed"] is False
+    assert "headers" not in posts[0]
 
 
 def test_botplay_policy_defaults_allow_one_active_game_and_bot_lobbies() -> None:
