@@ -8,6 +8,7 @@ import logging
 import os
 import random
 import sys
+import threading
 import time
 from pathlib import Path
 from typing import Any
@@ -22,11 +23,14 @@ from darkboard_mcts.search import ranked_actions
 
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[2]
-ENV_PATH = Path(os.environ.get("DARKBOARD_MCTS_ENV_PATH", PACKAGE_ROOT / ".env"))
-STATE_PATH = Path(os.environ.get("DARKBOARD_MCTS_STATE_PATH", PACKAGE_ROOT / ".bot-state.json"))
+DEFAULT_ENV_PATH = Path(os.environ.get("DARKBOARD_MCTS_ENV_PATH", PACKAGE_ROOT / ".env"))
+DEFAULT_STATE_PATH = Path(os.environ.get("DARKBOARD_MCTS_STATE_PATH", PACKAGE_ROOT / ".bot-state.json"))
+ENV_PATH = DEFAULT_ENV_PATH
+STATE_PATH = DEFAULT_STATE_PATH
 DEFAULT_TIMEOUT_SECONDS = 20
 BOT_JOIN_COOLDOWN_SECONDS = 60
 FAILED_MOVE_RETRY_DELAY_SECONDS = 1
+DEFAULT_ACTIVE_GAME_DISCOVERY_LIMIT = 100
 SUPPORTED_RULE_VARIANTS = (WILD16_RULESET,)
 BOTPLAY_CONFIG_MIGRATION = "darkboard_botplay_config_20260518"
 BOT_JOIN_PROBABILITY_CONFIG_MIGRATION = "darkboard_join_probability_20260518"
@@ -44,10 +48,17 @@ LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 
 logging.basicConfig(level=getattr(logging, LOG_LEVEL, logging.INFO), format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
+_STATE_LOCK = threading.RLock()
 
 
-def load_env_file(path: str | Path = ENV_PATH) -> None:
-    env_path = Path(path)
+def configure_runtime_paths(*, env_path: str | Path | None = None, state_path: str | Path | None = None) -> None:
+    global ENV_PATH, STATE_PATH
+    ENV_PATH = Path(env_path).expanduser().resolve() if env_path else DEFAULT_ENV_PATH
+    STATE_PATH = Path(state_path).expanduser().resolve() if state_path else DEFAULT_STATE_PATH
+
+
+def load_env_file(path: str | Path | None = None) -> None:
+    env_path = Path(path) if path is not None else ENV_PATH
     if not env_path.exists():
         return
 
@@ -102,11 +113,19 @@ def max_active_games() -> int:
     return int_env("KRIEGSPIEL_MAX_ACTIVE_GAMES", 1, minimum=1)
 
 
+def active_game_discovery_limit() -> int:
+    raw = os.environ.get("KRIEGSPIEL_ACTIVE_GAME_DISCOVERY_LIMIT", str(DEFAULT_ACTIVE_GAME_DISCOVERY_LIMIT)).strip()
+    try:
+        return max(1, min(100, int(raw)))
+    except ValueError:
+        return DEFAULT_ACTIVE_GAME_DISCOVERY_LIMIT
+
+
 def bot_game_pick_probability() -> float:
     return float_env("BOT_GAME_PICK_PROBABILITY", 0.1, minimum=0.0, maximum=1.0)
 
 
-def load_state() -> dict[str, Any]:
+def _load_state_unlocked() -> dict[str, Any]:
     try:
         return json.loads(STATE_PATH.read_text()) if STATE_PATH.exists() else {}
     except json.JSONDecodeError:
@@ -114,15 +133,26 @@ def load_state() -> dict[str, Any]:
         return {}
 
 
-def save_state(state: dict[str, Any]) -> None:
+def _save_state_unlocked(state: dict[str, Any]) -> None:
     STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     STATE_PATH.write_text(json.dumps(state, indent=2, sort_keys=True))
 
 
+def load_state() -> dict[str, Any]:
+    with _STATE_LOCK:
+        return _load_state_unlocked()
+
+
+def save_state(state: dict[str, Any]) -> None:
+    with _STATE_LOCK:
+        _save_state_unlocked(state)
+
+
 def save_token(token: str) -> None:
-    state = load_state()
-    state["token"] = token
-    save_state(state)
+    with _STATE_LOCK:
+        state = _load_state_unlocked()
+        state["token"] = token
+        _save_state_unlocked(state)
 
 
 def maybe_restore_token() -> None:
@@ -155,7 +185,7 @@ def _split_env_assignment(line: str) -> tuple[str, str] | None:
     return key, value
 
 
-def apply_botplay_config_migration(env_path: str | Path = ENV_PATH) -> None:
+def apply_botplay_config_migration(env_path: str | Path | None = None) -> None:
     """Move launch-era deployments onto the bot-vs-bot policy once."""
 
     state = load_state()
@@ -165,7 +195,7 @@ def apply_botplay_config_migration(env_path: str | Path = ENV_PATH) -> None:
     if migrations.get(BOTPLAY_CONFIG_MIGRATION):
         return
 
-    path = Path(env_path)
+    path = Path(env_path) if env_path is not None else ENV_PATH
     if not path.exists():
         return
 
@@ -209,7 +239,7 @@ def apply_botplay_config_migration(env_path: str | Path = ENV_PATH) -> None:
     save_state(state)
 
 
-def apply_join_probability_config_migration(env_path: str | Path = ENV_PATH) -> None:
+def apply_join_probability_config_migration(env_path: str | Path | None = None) -> None:
     """Reduce existing bot-vs-bot join sampling from 50% to 10% once."""
 
     state = load_state()
@@ -219,7 +249,7 @@ def apply_join_probability_config_migration(env_path: str | Path = ENV_PATH) -> 
     if migrations.get(BOT_JOIN_PROBABILITY_CONFIG_MIGRATION):
         return
 
-    path = Path(env_path)
+    path = Path(env_path) if env_path is not None else ENV_PATH
     if not path.exists():
         return
 
@@ -452,20 +482,22 @@ def serialize_belief(belief: BeliefState) -> dict[str, Any]:
 
 
 def restore_belief(game_id: str, belief: BeliefState) -> BeliefState:
-    state = load_state()
-    beliefs = state.get("beliefs")
-    snapshot = beliefs.get(game_id) if isinstance(beliefs, dict) else None
+    with _STATE_LOCK:
+        state = _load_state_unlocked()
+        beliefs = state.get("beliefs")
+        snapshot = beliefs.get(game_id) if isinstance(beliefs, dict) else None
     return restore_belief_snapshot(belief, snapshot if isinstance(snapshot, dict) else None)
 
 
 def save_belief(game_id: str, belief: BeliefState) -> None:
-    state = load_state()
-    beliefs = state.get("beliefs")
-    if not isinstance(beliefs, dict):
-        beliefs = {}
-    beliefs[game_id] = serialize_belief(belief)
-    state["beliefs"] = beliefs
-    save_state(state)
+    with _STATE_LOCK:
+        state = _load_state_unlocked()
+        beliefs = state.get("beliefs")
+        if not isinstance(beliefs, dict):
+            beliefs = {}
+        beliefs[game_id] = serialize_belief(belief)
+        state["beliefs"] = beliefs
+        _save_state_unlocked(state)
 
 
 def maybe_play_game(game: dict[str, Any] | str) -> bool:
@@ -502,35 +534,171 @@ def maybe_play_game(game: dict[str, Any] | str) -> bool:
     return False
 
 
-def run_loop(poll_seconds: float) -> None:
-    while True:
+def http_status_code(exc: requests.RequestException) -> int | None:
+    response = getattr(exc, "response", None)
+    if response is None:
+        return None
+    status_code = getattr(response, "status_code", None)
+    return int(status_code) if isinstance(status_code, int) else None
+
+
+class GameRunner:
+    def __init__(self, game_ref: str, *, poll_seconds: float) -> None:
+        self.game_ref = game_ref
+        self.poll_seconds = max(0.5, float(poll_seconds))
+        self.stop_event = threading.Event()
+        self.thread = threading.Thread(target=self._run, name=f"darkboard-mcts-game-{game_ref}", daemon=True)
+        self._started = False
+
+    def start(self) -> None:
+        if self._started:
+            return
+        self._started = True
+        logger.info("%s: starting game runner", self.game_ref)
+        self.thread.start()
+
+    def stop(self) -> None:
+        self.stop_event.set()
+
+    def join(self, timeout: float | None = None) -> None:
+        if self._started:
+            self.thread.join(timeout=timeout)
+
+    def is_alive(self) -> bool:
+        return self._started and self.thread.is_alive()
+
+    def _wait(self) -> None:
+        self.stop_event.wait(self.poll_seconds)
+
+    def _run(self) -> None:
+        stop_reason = "stopped"
         try:
-            mine = get_json("/game/mine/active")
-            games = mine.get("games", [])
-            if not isinstance(games, list):
-                games = []
-            maybe_create_lobby_game(games)
-            maybe_join_bot_lobby_game(games)
-            for game in active_games(games):
-                maybe_play_game(game)
-        except requests.RequestException as exc:
-            logger.warning("poll failed: %s", exc)
-        time.sleep(poll_seconds)
+            while not self.stop_event.is_set():
+                try:
+                    state = get_json(f"/game/{self.game_ref}/state")
+                except requests.RequestException as exc:
+                    status_code = http_status_code(exc)
+                    if status_code in {400, 403, 404, 409}:
+                        stop_reason = f"state unavailable http_{status_code}"
+                        break
+                    logger.warning("%s: runner state poll failed: %s", self.game_ref, exc)
+                    self._wait()
+                    continue
+
+                state_value = state.get("state")
+                if state_value != "active":
+                    stop_reason = f"state={state_value}"
+                    break
+
+                if state.get("turn") == state.get("your_color"):
+                    try:
+                        maybe_play_game(self.game_ref)
+                    except requests.RequestException as exc:
+                        status_code = http_status_code(exc)
+                        if status_code in {400, 403, 404, 409}:
+                            stop_reason = f"play stopped http_{status_code}"
+                            break
+                        logger.warning("%s: runner play failed: %s", self.game_ref, exc)
+
+                self._wait()
+        finally:
+            logger.info("%s: stopped game runner (%s)", self.game_ref, stop_reason)
+
+
+class GameRunnerScheduler:
+    def __init__(self, *, poll_seconds: float, runner_factory: Any | None = None) -> None:
+        self.poll_seconds = poll_seconds
+        self.runner_factory = runner_factory or (lambda ref: GameRunner(ref, poll_seconds=poll_seconds))
+        self.runners: dict[str, Any] = {}
+
+    @staticmethod
+    def game_id_for(game: dict[str, Any]) -> str:
+        return game_ref(game) or ""
+
+    def reconcile(self, games: list[dict[str, Any]]) -> None:
+        active_ids: set[str] = set()
+        for game in active_games(games):
+            ref = self.game_id_for(game)
+            if not ref:
+                continue
+            active_ids.add(ref)
+            runner = self.runners.get(ref)
+            if runner is not None and runner.is_alive():
+                continue
+            if runner is not None:
+                runner.join(timeout=0)
+            runner = self.runner_factory(ref)
+            self.runners[ref] = runner
+            runner.start()
+
+        for ref, runner in list(self.runners.items()):
+            if ref in active_ids or runner.is_alive():
+                continue
+            runner.join(timeout=0)
+            self.runners.pop(ref, None)
+
+        self.prune_finished()
+
+    def prune_finished(self) -> None:
+        for ref, runner in list(self.runners.items()):
+            if runner.is_alive():
+                continue
+            runner.join(timeout=0)
+            self.runners.pop(ref, None)
+
+    def stop_all(self) -> None:
+        for runner in list(self.runners.values()):
+            runner.stop()
+        for runner in list(self.runners.values()):
+            runner.join(timeout=2.0)
+        self.runners.clear()
+
+
+def run_loop(poll_seconds: float) -> None:
+    discovery_limit = active_game_discovery_limit()
+    logger.info("active-game discovery limit configured: max=%s", discovery_limit)
+    scheduler = GameRunnerScheduler(poll_seconds=poll_seconds)
+    try:
+        while True:
+            try:
+                mine = get_json(f"/game/mine/active?limit={discovery_limit}")
+                games = mine.get("games", [])
+                if not isinstance(games, list):
+                    games = []
+                maybe_create_lobby_game(games)
+                maybe_join_bot_lobby_game(games)
+                scheduler.reconcile(games)
+            except requests.RequestException as exc:
+                logger.warning("poll failed: %s", exc)
+            time.sleep(poll_seconds)
+    finally:
+        scheduler.stop_all()
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the Darkboard-inspired Wild 16 bot.")
+    parser.add_argument(
+        "--env-file",
+        default=os.environ.get("DARKBOARD_MCTS_ENV_PATH", str(DEFAULT_ENV_PATH)),
+        help="path to the bot instance env file",
+    )
+    parser.add_argument(
+        "--state-file",
+        default=os.environ.get("DARKBOARD_MCTS_STATE_PATH", str(DEFAULT_STATE_PATH)),
+        help="path to the bot instance state file",
+    )
     parser.add_argument("--register", action="store_true", help="register the bot and store its bearer token")
     parser.add_argument("--poll-seconds", type=float, default=2.0, help="poll interval between API rounds")
     return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> int:
+    args = parse_args(argv or sys.argv[1:])
+    configure_runtime_paths(env_path=args.env_file, state_path=args.state_file)
     load_env_file()
     apply_botplay_config_migration()
     apply_join_probability_config_migration()
     maybe_restore_token()
-    args = parse_args(argv or sys.argv[1:])
 
     if args.register:
         register_bot()
