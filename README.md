@@ -58,6 +58,7 @@ The runtime is intentionally conservative:
 - supports only `wild16`
 - registers listed by default
 - defaults to one active game
+- runs one bot process with one lightweight runner thread per active game
 - auto-creates one open Wild 16 lobby game when below the active-game cap
 - samples compatible bot-vs-bot lobby joins at most once per minute with 10% probability
 - submits only public API move attempts and never receives hidden-board data
@@ -177,11 +178,29 @@ python bot.py --register
 python bot.py --poll-seconds 2
 ```
 
+Multiple instances should use separate env and state files:
+
+```bash
+python bot.py \
+  --env-file instances/darkboard.env \
+  --state-file instances/darkboard-state.json
+```
+
 The same entrypoint is also exposed as:
 
 ```bash
 darkboard-mcts-bot --poll-seconds 2
 ```
+
+The main loop uses `KRIEGSPIEL_ACTIVE_GAME_DISCOVERY_LIMIT=100` by default when
+discovering assigned active games, then starts one runner thread per active game.
+Existing runner threads are not stopped only because a later capped discovery
+response omits them; each runner exits when its own game-state poll reports
+completion or unavailability. Darkboard remains intentionally conservative with
+`KRIEGSPIEL_MAX_ACTIVE_GAMES=1` by default because MCTS search is CPU-heavy. The
+local JSON state file is protected by an in-process lock, but separate bot
+identities should still use separate state files so belief snapshots and tokens
+do not mix.
 
 A production host can run the bot with
 `deploy/kriegspiel-darkboard-mcts-bot.service` once credentials have been
