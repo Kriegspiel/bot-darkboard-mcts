@@ -62,7 +62,7 @@ The runtime is intentionally conservative:
 - auto-creates one open Wild 16 lobby game when below the active-game cap
 - samples compatible bot-vs-bot lobby joins at most once per minute with 10% probability
 - submits only public API move attempts and never receives hidden-board data
-- stores only its own per-game belief matrices and referee-log cursor in `.bot-state.json`
+- stores its own per-game belief matrices and referee-log cursor under `.bot-state.json.games/`
 - exposes one-move model weights through `DARKBOARD_MODEL_*` environment overrides
 - searches public referee outcomes with bounded MCTS and falls back to the deterministic evaluator on malformed state
 - applies deterministic public-state quiescence adjustments under
@@ -221,3 +221,25 @@ Primary sources to keep close while implementing:
   Kriegspiel", Artificial Intelligence 174(11), 2010.
 - Gian Piero Favini, "The dark side of the board: advances in chess
   Kriegspiel", PhD thesis, University of Bologna, 2010.
+
+### Checkpoint recovery
+
+The configured state file holds tokens and cooldown/migration metadata. Beliefs
+are stored separately in `<state-file>.games/`, with only active runner snapshots
+cached in memory. Each meaningful evidence change is checkpointed atomically,
+including failed move attempts; unchanged snapshots skip the write.
+
+Startup migrates the old `beliefs` map before runners start, preserving and
+verifying a mode-0600 `<state-file>.legacy-<hash>.bak` backup. Interrupted imports
+resume safely; corrupt/conflicting state fails closed. Keep all backups private.
+Completed checkpoints are removed only after server confirmation. Missing
+assignments, HTTP errors and shutdown preserve durable state. Old checkpoints
+are checked one per discovery cycle without loading lifetime beliefs into RAM.
+
+After gameplay on the new layout, do not restore the migration backup alone to
+run an older bot: offline recovery must include the current per-game snapshots.
+Use separate state paths per process; sharing one path between processes is not
+supported.
+
+`PYTHONPATH=src python scripts/benchmark_checkpoints.py` measures synthetic
+100/10,000-game persistence work in temporary files without production state.
