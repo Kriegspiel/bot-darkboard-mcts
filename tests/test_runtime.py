@@ -11,6 +11,7 @@ import chess
 
 from darkboard_mcts import api
 from darkboard_mcts.belief import BeliefState
+from darkboard_mcts.checkpoints import CheckpointStore
 
 
 def teardown_function(_function) -> None:
@@ -274,12 +275,12 @@ def test_maybe_play_game_retries_ranked_attempts_until_one_completes() -> None:
                     with patch.object(api.time, "sleep") as sleep_mock:
                         assert api.maybe_play_game({"game_id": "game-1", "rule_variant": "wild16"}) is True
 
-        saved = json.loads(state_path.read_text())
+        saved = CheckpointStore(state_path).load_belief("game-1")
 
     assert [path for path, _ in posts] == ["/game/game-1/move", "/game/game-1/move"]
     assert {payload["uci"] for _, payload in posts if payload is not None} == {"d2d4", "e2e4"}
-    assert saved["beliefs"]["game-1"]["your_fen"] == state["your_fen"]
-    assert saved["beliefs"]["game-1"]["observed_referee_log_size"] == 1
+    assert saved["your_fen"] == state["your_fen"]
+    assert saved["observed_referee_log_size"] == 1
     sleep_mock.assert_called_once_with(api.FAILED_MOVE_RETRY_DELAY_SECONDS)
 
 
@@ -355,10 +356,10 @@ def test_maybe_play_game_persists_failed_attempt_evidence() -> None:
                     ):
                         assert api.maybe_play_game({"game_id": "game-1", "rule_variant": "wild16"}) is False
 
-        saved = json.loads(state_path.read_text())
+        saved = CheckpointStore(state_path).load_belief("game-1")
 
-    assert saved["beliefs"]["game-1"]["opponent_pawns"][chess.E3] < prior.opponent_pawns[chess.E3]
-    assert saved["beliefs"]["game-1"]["observed_referee_log_size"] == 1
+    assert saved["opponent_pawns"][chess.E3] < prior.opponent_pawns[chess.E3]
+    assert saved["observed_referee_log_size"] == 1
 
 
 def test_maybe_play_game_skips_non_wild16_games() -> None:
