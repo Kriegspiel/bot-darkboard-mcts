@@ -8,3 +8,7 @@ dist/
 build/
 *.egg-info/
 .bot-state.json*
+
+# Versioned Python runtime environments and rollback metadata.
+.venv*
+.python-runtime-rollback.json

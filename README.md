@@ -162,7 +162,7 @@ coverage rules.
 ## Development
 
 ```bash
-python -m venv .venv
+python3.15 -m venv .venv
 . .venv/bin/activate
 pip install -e ".[dev]"
 pytest
@@ -243,3 +243,7 @@ supported.
 
 `PYTHONPATH=src python scripts/benchmark_checkpoints.py` measures synthetic
 100/10,000-game persistence work in temporary files without production state.
+
+### Python runtime
+
+Use CPython 3.15.2 (see `.python-version`). Production environments are managed by `ks-deploy python-runtime`; keep the system Python unchanged.
