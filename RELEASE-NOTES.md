@@ -2,6 +2,8 @@
 
 ## 1.3.0 — Python 3.15
 
+- Declare the released Kriegspiel engine in development dependencies so benchmark tests also work in a clean checkout.
+
 - Move the supported runtime to CPython 3.15.2 and validate the complete test suite on that interpreter.
 
 ## 1.2.3 — 2026-10-25

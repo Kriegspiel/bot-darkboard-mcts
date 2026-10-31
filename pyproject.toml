@@ -23,6 +23,7 @@ darkboard-run-local-benchmark = "darkboard_mcts.local_benchmark:main"
 
 [project.optional-dependencies]
 dev = [
+    "kriegspiel @ git+https://github.com/Kriegspiel/ks-game.git@a6e55ca92c2543047ac7be8becf42ab2023f8b62",
     "pytest>=8.0",
 ]
 
